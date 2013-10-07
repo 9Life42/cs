@@ -8,7 +8,7 @@ public class RecursionFractal {
 		
 		double[] x = {0,1,0.5};
 		double[] y = {0,0,1};
-		int depth = 9;
+		int depth = 10;
 		
 		fractal(depth, x, y);
 		
