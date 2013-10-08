@@ -8,29 +8,33 @@ double keepAlive;
 keepAlive=0;
 while (keepAlive == 0){
 
-  double c[100],counter;
-  int a,b;
+  double x,c[100],counter;
+  int a;
 
-  a=0;
-  c[0]=1;
+
+  x=1;
   counter=0;
+  a=-1;
 
-  while (c[a] > 0) {
-
-    cout << "Input a number: ";
-
-    cin >> c[a];
+  while (x > 0) {
 
     a=a+1;
 
+    c[a]=x;
+
+    cout << "Input a number: ";
+
+    cin >> x;
+
   }
 
-  b=a;
-  a=a-1;
+  x=c[a];
 
   while (a > 0) {
 
-    if (c[b] ==c[a]) {
+    a=a-1;
+
+    if (x == c[a]) {
 
       counter=counter+1;
 
