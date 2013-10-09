@@ -4,8 +4,7 @@
 
 int main()
 {
-double keepAlive;
-keepAlive=0;
+double keepAlive=0;
 while (keepAlive == 0){
 
   double x,y,remainder,sum;
@@ -19,8 +18,6 @@ while (keepAlive == 0){
   while (x > 0) {
 
     remainder=fmod(x, 2);
-
-    cout << x;
 
     x=floor(x/2);
 
