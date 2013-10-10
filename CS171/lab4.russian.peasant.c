@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//Approximation of pi
+//Multiplication algorithm
 
 int main()
 {
