@@ -1,4 +1,5 @@
 .*
 *.c~
 *.c#
+a.out
 workspace/CS172/bin/
