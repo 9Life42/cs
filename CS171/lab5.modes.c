@@ -7,46 +7,63 @@ int main()
 double keepAlive=0;
 while (keepAlive == 0){
 
-  double x,sum,c,mean,scores[100];
-  int a=0;
+  double max,scores[101];
+  int n,x;
 
-  x=0; sum=0; c=0;
+  n=0;
 
-  cout << "Enter a score: ";
+  while (n < 101) {
+
+    scores[n]=0;
+
+    n += 1;
+
+  }
+
+  cout << "Enter the scores: ";
 
   cin >> x;
 
   while (x >= 0) {
 
-    a += 1;
-
-    scores[a] = x;
-
-    sum=sum+x;
-
-    c=c+1;
-
-    cout << "Enter another score or -1 to end: ";
+    scores[x] += 1;
 
     cin >> x;
 
   }
 
-  mean = sum/c;
+  n=0;
+  max=0;
 
-  cout << "The average is: " << mean << "\n";
+  while (n < 101) {
 
-  sum = 0;
+    if (scores[n] > max) {
 
-  while (a > 0) {
+      max = scores[n];
 
-    sum += pow((mean - scores[a]), 2);
+    }
 
-    a -= 1;
+    n += 1;
 
   }
 
-  cout << "The standard deviation is: " << sqrt(sum / c) << "\n";
+  n=0;
+
+  cout << "The modes are:";
+
+  while (n < 101) {
+
+    if (scores[n] == max) {
+
+      cout << " " << n;
+
+    }
+
+    n += 1;
+
+  }
+
+  cout << "\n";
 
 }
 }
