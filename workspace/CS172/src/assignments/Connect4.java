@@ -18,8 +18,7 @@ public class Connect4 {
 	 * @param maxDepth Maximum search depth.
 	 */
 	public static int bestMoveForBlack(Color[][] board, int maxDepth) {
-		// TODO You have to write this.
-		return -1;
+
 	}
 
 	/** Draws the board. */
@@ -52,7 +51,7 @@ public class Connect4 {
 	 * legal.
 	 */
 	public static void drop(Color[][] board, Color color, int column) {
-		for (int i = 0; ; i++) {
+		for (int i = 0; i < ROWS ; i++) {
 			if (board[i][column] == GRAY) {
 				board[i][column] = color;
 				break;
@@ -121,20 +120,20 @@ public class Connect4 {
 	 */
 	public static int max(Color[][] board, int maxDepth, int depth) {
 		Color winner = winner(board);
-		if (winner == WHITE) {
+		if (winner == BLACK) {
 			return 1;
-		} else if (winner == BLACK) {
+		} else if (winner == WHITE) {
 			return -1;
-		} else if (full(board) || (depth == maxDepth)) {
+		} else if (full(board)) {
 			return 0;
 		} else {
-			int bestResult = 2;
+			int bestResult = -2;
 			for (int c = 0; c < COLUMNS; c++) {
 				if (legal(board, c)) {
 					drop(board, BLACK, c);
-					int result = min(board, maxDepth, depth + 1);
+					int result = min(board, maxDepth, depth);
 					undo(board, c);
-					if (result <= bestResult) {
+					if (result >= bestResult) {
 						bestResult = result;
 					}
 				}
@@ -204,14 +203,14 @@ public class Connect4 {
 	public static Color winAt(Color[][] board, int r, int c, int rOffset,
 			int cOffset) {
 		
+		if (cOffset > 0 && c+4 > COLUMNS) return GRAY;
+		if (rOffset > 0 && r+4 > ROWS) return GRAY;
+		if (rOffset < 0 && r-4 < -1) return GRAY;
+		
 		Color color = board[r][c];
 		int n = 0;
 		
-//		if (rOffset > 0 && r+4 > ROWS) return GRAY;
-//		if (cOffset > 0 && c+4 > ROWS) return GRAY;
-//		if (cOffset < 0 && c-4 < 0) return GRAY;
-		
-		while (board[r][c] == color && board.length < ROWS && board[r].length < COLUMNS) {
+		while (color != GRAY && board[r][c] == color) {
 			n += 1;
 			if (n == 4) return color;
 			r += rOffset;
@@ -230,19 +229,20 @@ public class Connect4 {
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLUMNS; j++) {
 				
-				color = winAt(board, i, j, 1, 0);
+				color = winAt(board, i, j, 0, 1);
 				if (color != GRAY) return color;
 				
-				color = winAt(board, i, j, 0, 1);
+				color = winAt(board, i, j, 1, 0);
 				if (color != GRAY) return color;
 				
 				color = winAt(board, i, j, 1, 1);
 				if (color != GRAY) return color;
 				
-				color = winAt(board, i, j, 1, -1);
+				color = winAt(board, i, j, -1, 1);
 				if (color != GRAY) return color;
 			}
 		}
+		
 		return GRAY;
 	}
 
