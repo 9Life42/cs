@@ -15,10 +15,25 @@ public class Connect4 {
 
 	/**
 	 * Returns black's best move.
-	 * @param maxDepth Maximum search depth.
+	 * 
+	 * @param maxDepth
+	 *            Maximum search depth.
 	 */
 	public static int bestMoveForBlack(Color[][] board, int maxDepth) {
-
+		int bestMove = 0;
+		int bestResult = -2;
+		for (int c = 0; c < COLUMNS && bestResult != 1; c++) {
+			if (legal(board, c)) {
+				drop(board, BLACK, c);
+				int result = min(board, maxDepth, 0);
+				undo(board, c);
+				if (result >= bestResult) {
+					bestResult = result;
+					bestMove = c;
+				}
+			}
+		}
+		return bestMove;
 	}
 
 	/** Draws the board. */
@@ -51,7 +66,7 @@ public class Connect4 {
 	 * legal.
 	 */
 	public static void drop(Color[][] board, Color color, int column) {
-		for (int i = 0; i < ROWS ; i++) {
+		for (int i = 0; i < ROWS; i++) {
 			if (board[i][column] == GRAY) {
 				board[i][column] = color;
 				break;
@@ -63,7 +78,8 @@ public class Connect4 {
 	public static boolean full(Color[][] board) {
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLUMNS; j++) {
-				if (board[i][j] == GRAY) return false;
+				if (board[i][j] == GRAY)
+					return false;
 			}
 		}
 		return true;
@@ -73,7 +89,8 @@ public class Connect4 {
 	public static boolean legal(Color[][] board, int column) {
 		if (column >= 0 && column < COLUMNS) {
 			for (int i = 0; i < ROWS; i++) {
-				if (board[i][column] == GRAY) return true;
+				if (board[i][column] == GRAY)
+					return true;
 			}
 		}
 		return false;
@@ -115,8 +132,10 @@ public class Connect4 {
 	 * Returns the value of board with black to move: 1 if black can force a
 	 * win, -1 if black cannot avoid a loss, 0 otherwise.
 	 * 
-	 * @param maxDepth Maximum search depth.
-	 * @param depth Current search depth.
+	 * @param maxDepth
+	 *            Maximum search depth.
+	 * @param depth
+	 *            Current search depth.
 	 */
 	public static int max(Color[][] board, int maxDepth, int depth) {
 		Color winner = winner(board);
@@ -124,14 +143,14 @@ public class Connect4 {
 			return 1;
 		} else if (winner == WHITE) {
 			return -1;
-		} else if (full(board)) {
+		} else if (full(board) || (depth == maxDepth)) {
 			return 0;
 		} else {
 			int bestResult = -2;
 			for (int c = 0; c < COLUMNS; c++) {
 				if (legal(board, c)) {
 					drop(board, BLACK, c);
-					int result = min(board, maxDepth, depth);
+					int result = min(board, maxDepth, depth + 1);
 					undo(board, c);
 					if (result >= bestResult) {
 						bestResult = result;
@@ -146,8 +165,10 @@ public class Connect4 {
 	 * Returns the value of board with white to move: 1 if white cannot avoid a
 	 * loss, -1 if white can force a win, 0 otherwise.
 	 * 
-	 * @param maxDepth Maximum search depth.
-	 * @param depth Current search depth.
+	 * @param maxDepth
+	 *            Maximum search depth.
+	 * @param depth
+	 *            Current search depth.
 	 */
 	public static int min(Color[][] board, int maxDepth, int depth) {
 		Color winner = winner(board);
@@ -177,8 +198,10 @@ public class Connect4 {
 	 * opposite(BLACK) return WHITE. opposite(WHITE) returns BLACK.
 	 */
 	public static Color opposite(Color color) {
-		if (color == BLACK) return WHITE;
-		if (color == WHITE) return BLACK;
+		if (color == BLACK)
+			return WHITE;
+		if (color == WHITE)
+			return BLACK;
 		return null;
 	}
 
@@ -202,21 +225,25 @@ public class Connect4 {
 	 */
 	public static Color winAt(Color[][] board, int r, int c, int rOffset,
 			int cOffset) {
-		
-		if (cOffset > 0 && c+4 > COLUMNS) return GRAY;
-		if (rOffset > 0 && r+4 > ROWS) return GRAY;
-		if (rOffset < 0 && r-4 < -1) return GRAY;
-		
+
+		if (cOffset > 0 && c + 4 > COLUMNS)
+			return GRAY;
+		if (rOffset > 0 && r + 4 > ROWS)
+			return GRAY;
+		if (rOffset < 0 && r - 4 < -1)
+			return GRAY;
+
 		Color color = board[r][c];
 		int n = 0;
-		
+
 		while (color != GRAY && board[r][c] == color) {
 			n += 1;
-			if (n == 4) return color;
+			if (n == 4)
+				return color;
 			r += rOffset;
 			c += cOffset;
 		}
-		
+
 		return GRAY;
 	}
 
@@ -228,21 +255,25 @@ public class Connect4 {
 		Color color;
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLUMNS; j++) {
-				
+
 				color = winAt(board, i, j, 0, 1);
-				if (color != GRAY) return color;
-				
+				if (color != GRAY)
+					return color;
+
 				color = winAt(board, i, j, 1, 0);
-				if (color != GRAY) return color;
-				
+				if (color != GRAY)
+					return color;
+
 				color = winAt(board, i, j, 1, 1);
-				if (color != GRAY) return color;
-				
+				if (color != GRAY)
+					return color;
+
 				color = winAt(board, i, j, -1, 1);
-				if (color != GRAY) return color;
+				if (color != GRAY)
+					return color;
 			}
 		}
-		
+
 		return GRAY;
 	}
 
