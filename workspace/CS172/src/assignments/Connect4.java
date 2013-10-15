@@ -203,10 +203,22 @@ public class Connect4 {
 	 */
 	public static Color winAt(Color[][] board, int r, int c, int rOffset,
 			int cOffset) {
-		if (rOffset > 0 && r+4 > ROWS) return GRAY;
-		if (cOffset > 0 && c+4 > ROWS) return GRAY;
-		if (cOffset < 0 && c-4 < 0) return GRAY;
 		
+		Color color = board[r][c];
+		int n = 0;
+		
+//		if (rOffset > 0 && r+4 > ROWS) return GRAY;
+//		if (cOffset > 0 && c+4 > ROWS) return GRAY;
+//		if (cOffset < 0 && c-4 < 0) return GRAY;
+		
+		while (board[r][c] == color && board.length < ROWS && board[r].length < COLUMNS) {
+			n += 1;
+			if (n == 4) return color;
+			r += rOffset;
+			c += cOffset;
+		}
+		
+		return GRAY;
 	}
 
 	/**
@@ -214,12 +226,21 @@ public class Connect4 {
 	 * player has won.
 	 */
 	public static Color winner(Color[][] board) {
+		Color color;
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLUMNS; j++) {
-				if (winAt(board, i, j, 1, 0) != GRAY) return winAt(board, i, j, 1, 0);
-				else if (winAt(board, i, j, 0, 1) != GRAY) return winAt(board, i, j, 1, 0);
-				else if (winAt(board, i, j, 1, 1) != GRAY) return winAt(board, i, j, 1, 0);
-				else if (winAt(board, i, j, 1, -1) != GRAY) return winAt(board, i, j, 1, 0);
+				
+				color = winAt(board, i, j, 1, 0);
+				if (color != GRAY) return color;
+				
+				color = winAt(board, i, j, 0, 1);
+				if (color != GRAY) return color;
+				
+				color = winAt(board, i, j, 1, 1);
+				if (color != GRAY) return color;
+				
+				color = winAt(board, i, j, 1, -1);
+				if (color != GRAY) return color;
 			}
 		}
 		return GRAY;
