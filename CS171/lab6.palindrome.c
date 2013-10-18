@@ -9,11 +9,11 @@ double keepAlive=0;
 while (keepAlive == 0){
 
   int n,nn;
-  char word1[100],word2[100],concat[100];
+  char word[100];
 
   cout << "Enter two words: ";
 
-  cin >> word1 >> word2;
+  cin >> word;
 
   n=0;
   nn=0;
