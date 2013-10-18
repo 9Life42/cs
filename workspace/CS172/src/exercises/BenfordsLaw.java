@@ -1,6 +1,5 @@
 package exercises;
 import static edu.princeton.cs.introcs.StdOut.*;
-import static edu.princeton.cs.introcs.StdIn.*;
 import edu.princeton.cs.introcs.In;
 
 public class BenfordsLaw {

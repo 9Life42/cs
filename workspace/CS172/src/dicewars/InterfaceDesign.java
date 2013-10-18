@@ -1,19 +1,22 @@
 package dicewars;
 
-import static edu.princeton.cs.introcs.StdIn.*;
-import static edu.princeton.cs.introcs.StdOut.*;
 import static edu.princeton.cs.introcs.StdRandom.*;
 import static edu.princeton.cs.introcs.StdDraw.*;
 import java.awt.Color;
 
 public class InterfaceDesign {
+	
+	public static final Color PURPLE = new Color(150, 0, 200);
+	
+	public static final int COLUMNS = 7;
+	
+	public static final int ROWS = 5;
 
 	public static void main(String[] args) {
 		setCanvasSize(768, 768);
 
-		int[][][] board = new int[7][5][2];
-		Color[] player = { RED, ORANGE, MAGENTA, GREEN, CYAN, BLUE,
-				new Color(150, 0, 200) };
+		int[][][] board = new int[COLUMNS][ROWS][2]; // The third dimension is for the player color index and number of dice respectively
+		Color[] player = { RED, ORANGE, MAGENTA, GREEN, CYAN, BLUE, PURPLE };
 
 		randomizeBoard(board);
 		drawBoard(board, player);
@@ -105,13 +108,13 @@ public class InterfaceDesign {
 			line(0.125 + i, 0.875, 0.125 + i, 0.375);
 		}
 
-		for (int x = 0; x < 7; x++) {
-			for (int y = 0; y < 5; y++) {
+		for (int x = 0; x < COLUMNS; x++) {
+			for (int y = 0; y < ROWS; y++) {
 
 				setPenColor(player[board[x][y][0]]);
 				filledCircle((x + 1) * 0.125, (y + 3) * 0.125, 0.04);
 
-				setPenColor();
+				setPenColor(WHITE);
 				text((x + 1) * 0.125, (y + 3) * 0.125, "" + board[x][y][1]);
 
 			}
@@ -119,8 +122,8 @@ public class InterfaceDesign {
 	}
 
 	public static void randomizeBoard(int[][][] board) {
-		for (int x = 0; x < 7; x++) {
-			for (int y = 0; y < 5; y++) {
+		for (int x = 0; x < COLUMNS; x++) {
+			for (int y = 0; y < ROWS; y++) {
 
 				board[x][y][0] = uniform(7);
 				board[x][y][1] = uniform(1, 7);
