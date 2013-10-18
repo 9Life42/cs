@@ -166,14 +166,7 @@ public class Connect4Test {
 		assertEquals(-1, Connect4.min(board, 3, 0));
 	}
 	
-	@Test
-	public void testMin4() {
-		Color[][] board = emptyBoard();
-		Connect4.drop(board, WHITE, 2);
-		// White can win in four moves
-		assertEquals(-1, Connect4.min(board, 8, 0));
-	}
-	
+	// TODO Write another test that requires deeper search
 	@Test
 	public void testBestMoveForBlack() {
 		Color[][] board = emptyBoard();
