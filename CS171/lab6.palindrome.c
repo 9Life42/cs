@@ -4,53 +4,48 @@
 //racecar, mom, a, wow
 
 int main()
+{double keepAlive=0; while (keepAlive == 0)
 {
-double keepAlive=0;
-while (keepAlive == 0){
 
   int n,nn;
-  char word[100];
+  char word[100],pal;
 
-  cout << "Enter two words: ";
+  cout << "Enter a word to see if it's a palindrome: ";
 
   cin >> word;
 
-  n=0;
-  nn=0;
+  n = 0;
+  nn = 0;
+  pal = 0;
 
-  while (n < 100 && word1[n] != '\0') {
+  while (word[nn+1] != '\0') {
 
-    if (word1[n] >= 'A' && word1[n] <= 'Z') {
+    nn++;
 
-      concat[nn]=word1[n];
+  }
 
-      nn++;
+  while (nn > n) {
+
+    if (word[n] != word[nn]) {
+
+      pal++;
 
     }
 
     n++;
+    nn--;
 
   }
 
-  n=0;
+  if (pal > 0) {
 
-  while (n < 100 && word2[n] != '\0') {
+    cout << "NO\n";
 
-    if (word2[n] >= 'a' && word2[n] <= 'z') {
+  } else {
 
-      concat[nn]=word2[n];
-
-      nn++;
-
-    }
-
-    n++;
+    cout << "YES\n";
 
   }
-
-  concat[nn]='\0';
-
-  cout << concat << "\n";
 
 }
 }
