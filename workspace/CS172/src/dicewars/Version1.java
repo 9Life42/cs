@@ -9,7 +9,25 @@ import java.awt.Color;
 public class Version1 {
 
 	/** Define a new player color */
-	public static final Color PURPLE = new Color(150, 0, 200);
+	public static final Color PURPLE = new Color(130, 0, 180);
+	
+	/** Define a new player color */
+	public static final Color RED = new Color(255, 27, 44);
+	
+	/** Define a new player color */
+	public static final Color ORANGE = new Color(255, 115, 0);
+	
+	/** Define a new player color */
+	public static final Color PINK = new Color(252, 90, 170);
+	
+	/** Define a new player color */
+	public static final Color GREEN = new Color(0, 210, 0);
+	
+	/** Define a new player color */
+	public static final Color BLUE = new Color(0, 125, 255);
+
+	/** Define a new player color */
+	public static final Color YELLOW = new Color(255, 200, 0);
 
 	/** The number of columns on the board */
 	public static final int COLUMNS = 7;
@@ -33,7 +51,7 @@ public class Version1 {
 		// The third dimension is for the player color index and number of dice
 		// respectively
 
-		Color[] player = { PURPLE, RED, ORANGE, MAGENTA, GREEN, CYAN, BLUE };
+		Color[] player = { PURPLE, RED, ORANGE, PINK, GREEN, BLUE, YELLOW };
 		int[] adjTerritories = new int[PLAYERS];
 
 		int playerUp = 0;
