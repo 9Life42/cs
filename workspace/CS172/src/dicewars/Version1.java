@@ -8,16 +8,22 @@ import java.awt.Color;
 
 public class Version1 {
 
+	/** Define a new player color */
 	public static final Color PURPLE = new Color(150, 0, 200);
 
+	/** The number of columns on the board */
 	public static final int COLUMNS = 7;
 
+	/** The number of rows on the board */
 	public static final int ROWS = 5;
 
+	/** The number of players */
 	public static final int PLAYERS = 7;
 
+	/** The array element corresponding to the player (color) on a territory */
 	public static final int PLAYER_INDEX = 0;
 
+	/** The array element corresponding to the number of dice on a territory  */
 	public static final int DICE = 1;
 
 	public static void main(String[] args) {
@@ -27,7 +33,7 @@ public class Version1 {
 		// The third dimension is for the player color index and number of dice
 		// respectively
 
-		Color[] player = { RED, ORANGE, MAGENTA, GREEN, CYAN, BLUE, PURPLE };
+		Color[] player = { PURPLE, RED, ORANGE, MAGENTA, GREEN, CYAN, BLUE };
 		int[] adjTerritories = new int[PLAYERS];
 
 		int playerUp = 0;
@@ -55,7 +61,7 @@ public class Version1 {
 				attColumn = getColumn(inX);
 				attRow = getRow(inY);
 
-				if (inX > 0.47 && inX < 0.53 && inY > 0.04 && inY < 0.06) {
+				if (inX > 0.43 && inX < 0.57 && inY > 0.03 && inY < 0.07) {
 					// End turn button
 					playerUp = next(playerUp);
 
@@ -79,7 +85,7 @@ public class Version1 {
 				defColumn = getColumn(inX);
 				defRow = getRow(inY);
 
-				if (inX > 0.47 && inX < 0.53 && inY > 0.04 && inY < 0.06) {
+				if (inX > 0.43 && inX < 0.57 && inY > 0.03 && inY < 0.07) {
 					// End turn button
 					playerUp = next(playerUp);
 				
@@ -100,6 +106,11 @@ public class Version1 {
 		}
 	}
 	
+	/**
+	 * Get the location of a mouse click
+	 * 
+	 * @return An array with the x and y values of the mouse click
+	 */
 	private static double[] mouseClick() {
 		
 		double[] click = new double[2];
@@ -118,6 +129,12 @@ public class Version1 {
 		return click;
 	}
 
+	/**
+	 * Get the column on the board from a mouse click
+	 * 
+	 * @param inX The x coordinate of the click
+	 * @return The column where the mouse was clicked or -1 if the click was off the board
+	 */
 	private static int getColumn(double inX) {
 		for (int x = 0; x < COLUMNS; x++) {
 
@@ -130,6 +147,12 @@ public class Version1 {
 		// If the selection is off the board
 	}
 
+	/**
+	 * Get the row on the board from a mouse click
+	 * 
+	 * @param inY The y coordinate of the click
+	 * @return The row where the mouse was clicked or -1 if the click was off the board
+	 */
 	private static int getRow(double inY) {
 		for (int y = 0; y < ROWS; y++) {
 
@@ -142,12 +165,24 @@ public class Version1 {
 		// If the selection is off the board
 	}
 
+	/**
+	 * Switch to the next player
+	 * 
+	 * @param playerUp Current player
+	 * @return Next player
+	 */
 	private static int next(int playerUp) {
 		if (playerUp + 1 == PLAYERS)
 			return 0;
 		return playerUp + 1;
 	}
 
+	/**
+	 * Draw the map portion of the board
+	 * 
+	 * @param board The current state of the board
+	 * @param player The array of payer colors
+	 */
 	public static void drawBoard(int[][][] board, Color[] player) {
 
 		clear();
@@ -175,6 +210,13 @@ public class Version1 {
 		}
 	}
 
+	/**
+	 * Draw the player portion of the board
+	 * 
+	 * @param player The array of player colors
+	 * @param adjTerritories The number of adjacent territories each person has
+	 * @param playerUp The player who's turn it is
+	 */
 	public static void drawPlayers(Color[] player, int[] adjTerritories,
 			int playerUp) {
 
@@ -200,6 +242,12 @@ public class Version1 {
 
 	}
 
+	/**
+	 * Roll and draw the defender's dice
+	 * 
+	 * @param defender The number of dice on the defender's territory
+	 * @return The sum of the defender's dice rolls
+	 */
 	public static int defenderDice(int defender) {
 		int sum = 0;
 		int x = 0;
@@ -225,6 +273,12 @@ public class Version1 {
 		return sum;
 	}
 
+	/**
+	 * Roll and draw the attacker's dice
+	 * 
+	 * @param attacker The number of dice on the attacker's territory
+	 * @return The sum of the attacker's dice rolls
+	 */
 	private static int attackerDice(int attacker) {
 		int sum = 0;
 		int x = 0;
@@ -250,6 +304,14 @@ public class Version1 {
 		return sum;
 	}
 	
+	/**
+	 * Redraw a selected territory
+	 * 
+	 * @param player The array of player colors
+	 * @param board The current state of the board
+	 * @param column The column of the territory selected
+	 * @param row The row of the territory selected
+	 */
 	public static void redrawTerritory(Color[] player, int[][][] board, int column, int row) {
 		setPenColor(BLACK);
 		filledCircle((column + 1) * 0.125, (row + 3) * 0.125,
@@ -267,6 +329,11 @@ public class Version1 {
 		show(0);
 	}
 
+	/**
+	 * Randomize the board to have a random layout of players and dice
+	 * 
+	 * @param board The current state of the board
+	 */
 	public static void randomizeBoard(int[][][] board) {
 		for (int x = 0; x < COLUMNS; x++) {
 			for (int y = 0; y < ROWS; y++) {
@@ -280,6 +347,16 @@ public class Version1 {
 		}
 	}
 
+	/**
+	 * Test if an attack is legal
+	 * 
+	 * @param board The current state of the board
+	 * @param attColumn The column of the attacker's territory
+	 * @param attRow the row of the attacker's territory
+	 * @param defColumn the column of the defender's territory
+	 * @param defRow the row of the defender's territory
+	 * @return true if the attack is legal, false otherwise
+	 */
 	public static boolean legal(int[][][] board, int attColumn, int attRow,
 			int defColumn, int defRow) {
 		
@@ -298,6 +375,15 @@ public class Version1 {
 		return true;
 	}
 
+	/**
+	 * Perform an attack and display the result
+	 * 
+	 * @param board The current board state
+	 * @param attColumn The column of the attacker's territory
+	 * @param attRow the row of the attacker's territory
+	 * @param defColumn the column of the defender's territory
+	 * @param defRow the row of the defender's territory
+	 */
 	public static void attack(int[][][] board, int attColumn, int attRow,
 			int defColumn, int defRow) {
 
