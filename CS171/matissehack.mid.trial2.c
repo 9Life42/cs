@@ -14,34 +14,38 @@ int main()
   cin >> inn;
 
   i = 0;
+  ii = 0;
 
   second = 1;
 
-  while (i < 100 && inn[i] != '\0') {
+  while (ii < 100 && inn[i] != '\0') {
 
     if (inn[i] == 'a' || inn[i] == 'e' || inn[i] == 'i' || inn[i] == 'o' || inn[i] == 'u') {
 
-      out[i] = inn[i];
+      out[ii] = inn[i];
 
       i++;
+      ii++;
 
     } else {
 
-      out[i] = inn[i];
+      out[ii] = inn[i];
 
       i++;
+      ii++;
 
       second = -1 * second;
 
       if (second == 1) {
 
-	out[i] = 'X';
+	out[ii] = 'X';
+	ii++;
 
       }
     }
   }
 
-  out[i] = '\0';
+  out[ii] = '\0';
 
   cout << out << "\n";
 }
