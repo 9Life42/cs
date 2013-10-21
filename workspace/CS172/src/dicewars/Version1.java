@@ -36,87 +36,53 @@ public class Version1 {
 
 		while (true) {
 
-			drawBoard(board, player);
-			drawPlayers(player, adjTerritories, playerUp);
-			show(0);
-
 			while (true) {
+				
+				clear();
+				drawBoard(board, player);
+				drawPlayers(player, adjTerritories, playerUp);
+				show(0);
 
 				int attColumn;
 				int attRow;
 				int defColumn;
 				int defRow;
 
-				double inX;
-				double inY;
-
-				while (!mousePressed()) {
-					// Wait for mouse press
-				}
-
-				inX = mouseX();
-				inY = mouseY();
-
+				double[] click = mouseClick();
+				double inX = click[0];
+				double inY = click[1];
+				// Get the attacker territory
 				attColumn = getColumn(inX);
 				attRow = getRow(inY);
 
 				if (inX > 0.47 && inX < 0.53 && inY > 0.04 && inY < 0.06) {
 					// End turn button
 					playerUp = next(playerUp);
-					
-					while (mousePressed()) {
-						// Wait for mouse release
-					}
 
 					break;
 
 				} else if (attColumn > -1 && attRow > -1
 						&& board[attColumn][attRow][PLAYER_INDEX] == playerUp) {
 					// If the row and column are on the board and the correct
-					// player
-					// is selected, continue
+					// player is selected, continue
 
-					setPenColor(BLACK);
-					filledCircle((attColumn + 1) * 0.125, (attRow + 3) * 0.125,
-							0.04);
-
-					setPenRadius(0.01);
-					setPenColor(player[board[attColumn][attRow][PLAYER_INDEX]]);
-					circle((attColumn + 1) * 0.125, (attRow + 3) * 0.125, 0.04);
-
-					setPenRadius();
-					setPenColor(WHITE);
-					text((attColumn + 1) * 0.125, (attRow + 3) * 0.125, ""
-							+ board[attColumn][attRow][DICE]);
-
-					show(0);
+					redrawTerritory(player, board, attColumn, attRow);
 
 				} else {
 					break;
 				}
 
-				while (mousePressed()) {
-					// Wait for mouse release
-				}
-
-				while (!mousePressed()) {
-					// Wait for mouse press
-				}
-
-				inX = mouseX();
-				inY = mouseY();
-
+				click = mouseClick();
+				inX = click[0];
+				inY = click[1];
+				// Get the defender territory
 				defColumn = getColumn(inX);
 				defRow = getRow(inY);
 
 				if (inX > 0.47 && inX < 0.53 && inY > 0.04 && inY < 0.06) {
 					// End turn button
 					playerUp = next(playerUp);
-					
-					while (mousePressed()) {
-						// Wait for mouse release
-					}
-
+				
 					break;
 
 				} else if (defColumn > -1 && defRow > -1
@@ -124,30 +90,32 @@ public class Version1 {
 					// If the row and column are on the board and an enemy is
 					// selected, fight
 
-					setPenColor(BLACK);
-					filledCircle((defColumn + 1) * 0.125, (defRow + 3) * 0.125,
-							0.04);
-
-					setPenRadius(0.01);
-					setPenColor(player[board[defColumn][defRow][PLAYER_INDEX]]);
-					circle((defColumn + 1) * 0.125, (defRow + 3) * 0.125, 0.04);
-
-					setPenRadius();
-					setPenColor(WHITE);
-					text((defColumn + 1) * 0.125, (defRow + 3) * 0.125, ""
-							+ board[defColumn][defRow][DICE]);
-
+					redrawTerritory(player, board, defColumn, defRow);
 					attack(board, attColumn, attRow, defColumn, defRow);
 
 				} else {
 					break;
 				}
-
-				while (mousePressed()) {
-					// Wait for mouse release
-				}
 			}
 		}
+	}
+	
+	private static double[] mouseClick() {
+		
+		double[] click = new double[2];
+		
+		while (!mousePressed()) {
+			// Wait for mouse press
+		}
+
+		click[0] = mouseX();
+		click[1] = mouseY();
+
+		while (mousePressed()) {
+			// Wait for mouse release
+		}
+		
+		return click;
 	}
 
 	private static int getColumn(double inX) {
@@ -205,8 +173,6 @@ public class Version1 {
 
 			}
 		}
-
-		show(0);
 	}
 
 	public static void drawPlayers(Color[] player, int[] adjTerritories,
@@ -283,6 +249,23 @@ public class Version1 {
 
 		return sum;
 	}
+	
+	public static void redrawTerritory(Color[] player, int[][][] board, int column, int row) {
+		setPenColor(BLACK);
+		filledCircle((column + 1) * 0.125, (row + 3) * 0.125,
+				0.04);
+
+		setPenRadius(0.01);
+		setPenColor(player[board[column][row][PLAYER_INDEX]]);
+		circle((column + 1) * 0.125, (row + 3) * 0.125, 0.04);
+
+		setPenRadius();
+		setPenColor(WHITE);
+		text((column + 1) * 0.125, (row + 3) * 0.125, ""
+				+ board[column][row][DICE]);
+
+		show(0);
+	}
 
 	public static void randomizeBoard(int[][][] board) {
 		for (int x = 0; x < COLUMNS; x++) {
@@ -299,6 +282,10 @@ public class Version1 {
 
 	public static boolean legal(int[][][] board, int attColumn, int attRow,
 			int defColumn, int defRow) {
+		
+		if (board[attColumn][attRow][DICE] <= 1)
+			// If the attacker only has one die
+			return false;
 
 		if (abs(attColumn - defColumn) + abs(attRow - defRow) != 1)
 			// Test if the territories are touching
@@ -323,12 +310,12 @@ public class Version1 {
 			int def = defenderDice(board[defColumn][defRow][DICE]);
 
 			if (att > def) {
-				text(0.5, 0.2, "Attacker wins! Click to continue.");
+				text(0.5, 0.2, "Attacker wins!");
 			} else {
-				text(0.5, 0.2, "Defender wins! Click to continue.");
+				text(0.5, 0.2, "Defender wins!");
 			}
 
-			show(500);
+			show(2000);
 
 		}
 	}
