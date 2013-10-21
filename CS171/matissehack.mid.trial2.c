@@ -3,32 +3,46 @@
 //Insert 'X' after every second consonant
 
 int main()
+{ double keepAlive=0; while (keepAlive == 0)
 {
-double keepAlive=0;
-while (keepAlive == 0){
 
-  char in[100], out[100], second;
-  int i;
+  char inn[100], out[100];
+  int i, ii, second;
 
   cout << "Enter a word: ";
 
-  cin >> word[100];
+  cin >> inn;
 
   i = 0;
 
-  second = -1;
+  second = 1;
 
-  while (i < 100 && word[i] != '\0') {
+  while (i < 100 && inn[i] != '\0') {
 
-    if (word[i] == 'a' || word[i] == 'e' || word[i] == 'i' || word[i] == 'o' || word[i] == 'u') {
+    if (inn[i] == 'a' || inn[i] == 'e' || inn[i] == 'i' || inn[i] == 'o' || inn[i] == 'u') {
+
+      out[i] = inn[i];
+
+      i++;
 
     } else {
 
+      out[i] = inn[i];
+
+      i++;
+
       second = -1 * second;
 
+      if (second == 1) {
+
+	out[i] = 'X';
+
+      }
     }
+  }
 
-    if (second == 1) {}
+  out[i] = '\0';
 
+  cout << out << "\n";
 }
 }
