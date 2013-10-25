@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-// solve bx+c=0 for x when given b and c
+// Output how much p pennies are worth
 
 int main()
 {

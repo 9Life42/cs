@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//Does the first number ever show up again
+//Does the last number ever show up again?
 
 int main()
 {

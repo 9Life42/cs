@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//Characters
+// Intro to characters
 
 int main()
 {

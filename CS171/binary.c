@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//Binary
+//Output the binary representation of a number
 
 int main()
 {

@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//
+// Count from one to ten
 
 int main()
 {

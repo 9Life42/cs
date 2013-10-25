@@ -1,4 +1,4 @@
-// Harmonic practice problem
+// Alternating harmonic practice problem
 
 double n,num,i,sign,den;
 
@@ -90,6 +90,7 @@ while (k <= 100) {
  }
 
 // Pi approx. lab
+// With an alternate version
 
 double n;
 
@@ -97,17 +98,17 @@ cout << "enter a positive odd number";
 
 cin >> n;
 
-thing=1;
-// thing=-1;
+thing = 1;
+// thing = -1;
 
 while (n >= 3) {
-  // n >= 1
+// while (n >= 1) {
 
   thing=2+n*n/thing;
   n=n-2;
 
   // thing = n*n/(2+thing);
-  // n=n-2;
+  // n = n - 2;
 
  }
 

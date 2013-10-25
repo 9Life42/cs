@@ -1,5 +1,7 @@
 #include <FPT.h>
 
+// Absolute value
+
 int main()
 {
   double a,b;

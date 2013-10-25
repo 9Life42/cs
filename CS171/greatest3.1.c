@@ -1,5 +1,7 @@
 #include <FPT.h>
 
+// Output the greatest of three numbers
+
 int main()
 {
   double a,b,c;

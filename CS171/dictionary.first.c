@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//Characters
+// Output the word that comes first in the dictionary
 
 int main()
 {

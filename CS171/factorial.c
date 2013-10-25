@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//s=1+2+3+...+n
+//s=1*2*3*...*n
 
 int main()
 {

@@ -1,5 +1,7 @@
 #include <FPT.h>
 
+// Convert celcius to fahrenheit
+
 int main()
 {
   double c,f ;

@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//Average test scores with standard deviation
+// Find all modes in a set of test scores (whole numbers 0 to 100)
 
 int main()
 {

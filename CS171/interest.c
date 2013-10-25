@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//x^n
+// Compute the time needed for an account to reach $200,000 and the contribution from the bank
 
 int main()
 {
@@ -23,8 +23,6 @@ while (keepAlive == 0){
     time=time+1;
 
   }
-
-
 
   cout << floor(time/12) << " years and " << fmod(time, 12) << " months\n";
 

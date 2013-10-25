@@ -1,5 +1,7 @@
 #include <FPT.h>
 
+// Output the greater of two numbers
+
 int main()
 {
   double a,b;

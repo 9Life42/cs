@@ -1,5 +1,7 @@
 #include <FPT.h>
 
+// Add two numbers
+
 int main()
 {
   double a,b,c;

@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//Approximation of e
+// Approximation of e^x
 
 int main()
 {
@@ -14,7 +14,7 @@ while (keepAlive == 0){
 
   cin >> x;
 
-  cout << "How accurate do you want e? ";
+  cout << "How accurate do you want e" << x << "? ";
 
   cin >> n;
 

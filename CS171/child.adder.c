@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-//
+// Multiply by only using addition
 
 int main()
 {
