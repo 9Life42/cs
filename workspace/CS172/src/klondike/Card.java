@@ -39,7 +39,9 @@ public class Card {
 	 * @see getSuit()
 	 */
 	public Card(int rank, int suit) {
-		// TODO You have to write this.
+		this.rank = rank;
+		this.suit = suit;
+		faceUp = true;
 	}
 
 	/**
@@ -47,8 +49,7 @@ public class Card {
 	 * KING. ACE is defined as 1, and so on upward, for ease of iteration.
 	 */
 	public int getRank() {
-		// TODO You have to write this.
-		return -1;
+		return rank;
 	}
 
 	/**
@@ -56,25 +57,24 @@ public class Card {
 	 * These correspond to the ints 0 through 3 for ease of iteration.
 	 */
 	public int getSuit() {
-		// TODO You have to write this.
-		return -1;
+		return suit;
 	}
 
 	/** Returns true if this card is face-up. */
 	public boolean isFaceUp() {
-		// TODO You have to write this.
-		return false;
+		return faceUp;
 	}
 
 	/** Returns true if this card is red. */
 	public boolean isRed() {
-		// TODO You have to write this.
+		if (suit == HEARTS || suit == DIAMONDS)
+			return true;
 		return false;
 	}
 
 	/** Sets the face-up status of this card. */
 	public void setFaceUp(boolean faceUp) {
-		// TODO You have to write this.
+		this.faceUp = faceUp;
 	}
 
 }

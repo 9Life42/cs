@@ -1,6 +1,7 @@
 package klondike;
 
 import static edu.princeton.cs.introcs.StdRandom.*;
+import static klondike.Card.DIAMONDS;
 
 /** A deck or pile of cards. */
 public class Deck {
@@ -13,17 +14,24 @@ public class Deck {
 
 	/** A new deck is initially empty. */
 	public Deck() {
-		// TODO You have to write this.
+		cards = new Card[52];
 	}
 
 	/** Adds card to the top of this deck. */
 	public void add(Card card) {
-		// TODO You have to write this.
+		cards[size] = card;
+		size++;
 	}
 
 	/** Adds all cards in a standard deck. */
 	public void fill() {
-		// TODO You have to write this.
+		size = 0;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 1; j < 14; j++) {
+				cards[size] = new Card(j, i);
+				size++;
+			}
+		}
 	}
 
 	/**
@@ -31,8 +39,7 @@ public class Deck {
 	 * Assumes the deck is not empty.
 	 */
 	public Card get(int i) {
-		// TODO You have to write this.
-		return null;
+		return cards[i];
 	}
 
 	/** Moves one card from the top of this deck to the top of that deck. */
@@ -58,8 +65,7 @@ public class Deck {
 
 	/** Returns the number of cards in this deck. */
 	public int size() {
-		// TODO You have to write this.
-		return -1;
+		return size;
 	}
 
 	/**
@@ -68,8 +74,9 @@ public class Deck {
 	 * @return null if this deck is empty.
 	 */
 	public Card top() {
-		// TODO You have to write this.
-		return null;
+		if (size == 0)
+			return null;
+		return cards[size - 1];
 	}
 
 }
