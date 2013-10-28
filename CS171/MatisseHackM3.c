@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-// Is each number greater than all successors combined?
+// Is the first or second half of a sequence of numbers greater?
 
 int main()
 {
