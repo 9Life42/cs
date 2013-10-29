@@ -44,7 +44,8 @@ public class Deck {
 
 	/** Moves one card from the top of this deck to the top of that deck. */
 	public void move(Deck that) {
-		// TODO You have to write this.
+		that.add(cards[size - 1]);
+		size -= 1;
 	}
 
 	/**
@@ -53,14 +54,24 @@ public class Deck {
 	 * this becomes the top of that.
 	 */
 	public void move(Deck that, int n) {
-		// TODO You have to write this.
+		for (int i = size - n; i < size; i++) {
+			that.add(cards[i]);
+			cards[i] = null;
+		}
+		
+		size -= n;
 	}
 
 	/**
 	 * Randomly reorders the cards in this deck.
 	 */
 	public void shuffle() {
-		// TODO You have to write this.
+		for (int i = 0; i < cards.length; i++) {
+			int rand = i + uniform(cards.length - i);
+			Card c = cards[i];
+			cards[i] = cards[rand];
+			cards[rand] = c;
+		}
 	}
 
 	/** Returns the number of cards in this deck. */
