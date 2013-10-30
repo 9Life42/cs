@@ -13,7 +13,7 @@ int main()
 
       c = 0;
 
-      while (c < n - r) {
+      while (c < n - r - 1) {
 
 	cout << " ";
 
