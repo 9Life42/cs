@@ -67,7 +67,7 @@ public class Deck {
 	 */
 	public void shuffle() {
 		for (int i = 0; i < cards.length; i++) {
-			int rand = i + uniform(cards.length - i);
+			int rand = i + uniform(this.size - i);
 			Card c = cards[i];
 			cards[i] = cards[rand];
 			cards[rand] = c;
