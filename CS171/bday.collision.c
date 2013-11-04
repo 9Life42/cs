@@ -1,6 +1,7 @@
 #include <FPT.h>
 
 // Monte Carlo simulator: throw 25 pennies, probability of getting 10+ heads
+// 15 - 0.252901, 20 - 0.411438, 25 - 0.5687, 30 - 0.706316
 
 int main()
 { double keepAlive = 0; while (keepAlive == 0) {
