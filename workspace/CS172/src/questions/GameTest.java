@@ -67,7 +67,7 @@ public class GameTest {
 	public void testGetLearningQuestion() {
 		game.descend(false);
 		assertEquals(
-				"What question would distinguish a fox (y) + from a giraffe (n)?",
+				"What question would distinguish a fox (y) from a giraffe (n)?",
 				game.getLearningQuestion("a fox"));
 	}
 

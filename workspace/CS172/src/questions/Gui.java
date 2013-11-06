@@ -51,7 +51,45 @@ public class Gui {
 	 */
 	protected void drawSubtree(Node node, double y, double yDecrement,
 			double left, double right) {
-		// TODO You have to write this.
+		double mid = (left + right) / 2;
+		double leftTip = (mid + left) / 2;
+		double rightTip = (mid + right) / 2;
+		double bottom = y - yDecrement;
+
+		line(mid, y, leftTip, bottom);
+		line(mid, y, rightTip, bottom);
+
+		setPenColor(WHITE);
+		filledCircle(mid, y, 0.01);
+		filledCircle(leftTip, bottom, 0.01);
+		filledCircle(rightTip, bottom, 0.01);
+		
+		setPenColor();
+		circle(mid, y, 0.01);
+		circle(leftTip, bottom, 0.01);
+		circle(rightTip, bottom, 0.01);
+
+		if (node == game.getCurrentNode()) {
+			setPenColor(RED);
+			filledCircle(mid, y, 0.012);
+			setPenColor();
+		}
+
+		if (!node.getLeft().isLeaf()) {
+			drawSubtree(node.getLeft(), bottom, yDecrement, left, mid);
+		} else if (node.getLeft() == game.getCurrentNode()) {
+			setPenColor(RED);
+			filledCircle(leftTip, bottom, 0.012);
+			setPenColor();
+		}
+
+		if (!node.getRight().isLeaf()) {
+			drawSubtree(node.getRight(), bottom, yDecrement, mid, right);
+		} else if (node.getRight() == game.getCurrentNode()) {
+			setPenColor(RED);
+			filledCircle(rightTip, bottom, 0.012);
+			setPenColor();
+		}
 	}
 
 	/**
