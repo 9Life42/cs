@@ -60,18 +60,18 @@ public class Gui {
 		line(mid, y, rightTip, bottom);
 
 		setPenColor(WHITE);
-		filledCircle(mid, y, 0.01);
-		filledCircle(leftTip, bottom, 0.01);
-		filledCircle(rightTip, bottom, 0.01);
+		filledCircle(mid, y, CIRCLE_RADIUS);
+		filledCircle(leftTip, bottom, CIRCLE_RADIUS);
+		filledCircle(rightTip, bottom, CIRCLE_RADIUS);
 		
 		setPenColor();
-		circle(mid, y, 0.01);
-		circle(leftTip, bottom, 0.01);
-		circle(rightTip, bottom, 0.01);
+		circle(mid, y, CIRCLE_RADIUS);
+		circle(leftTip, bottom, CIRCLE_RADIUS);
+		circle(rightTip, bottom, CIRCLE_RADIUS);
 
 		if (node == game.getCurrentNode()) {
 			setPenColor(RED);
-			filledCircle(mid, y, 0.012);
+			filledCircle(mid, y, CIRCLE_RADIUS + 0.002);
 			setPenColor();
 		}
 
@@ -79,7 +79,7 @@ public class Gui {
 			drawSubtree(node.getLeft(), bottom, yDecrement, left, mid);
 		} else if (node.getLeft() == game.getCurrentNode()) {
 			setPenColor(RED);
-			filledCircle(leftTip, bottom, 0.012);
+			filledCircle(leftTip, bottom, CIRCLE_RADIUS + 0.002);
 			setPenColor();
 		}
 
@@ -87,7 +87,7 @@ public class Gui {
 			drawSubtree(node.getRight(), bottom, yDecrement, mid, right);
 		} else if (node.getRight() == game.getCurrentNode()) {
 			setPenColor(RED);
-			filledCircle(rightTip, bottom, 0.012);
+			filledCircle(rightTip, bottom, CIRCLE_RADIUS + 0.002);
 			setPenColor();
 		}
 	}
