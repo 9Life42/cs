@@ -1,6 +1,7 @@
 #include <FPT.h>
 
 // Randomly generate point in the square -1 < x < 1 and -1 < y < 1
+// Then check if it is inside of a cylinder or cone
 
 int main()
 { double keepAlive = 0; while (keepAlive == 0) {
