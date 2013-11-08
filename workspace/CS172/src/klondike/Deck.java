@@ -1,7 +1,6 @@
 package klondike;
 
 import static edu.princeton.cs.introcs.StdRandom.*;
-import static klondike.Card.DIAMONDS;
 
 /** A deck or pile of cards. */
 public class Deck {
