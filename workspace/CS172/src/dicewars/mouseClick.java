@@ -8,13 +8,9 @@ public class mouseClick {
 	
 	private double y;
 	
-	public double getX() {
-		return x;
-	}
+	private int column;
 	
-	public double getY() {
-		return y;
-	}
+	private int row;
 	
 	public mouseClick() {
 		while (!mousePressed()) { }
@@ -23,5 +19,21 @@ public class mouseClick {
 		y = mouseY();
 		
 		while (mousePressed()) { }
+	}
+	
+	public double getX() {
+		return x;
+	}
+	
+	public double getY() {
+		return y;
+	}
+	
+	public double getColumn() {
+		return column;
+	}
+	
+	public double getRow() {
+		return row;
 	}
 }

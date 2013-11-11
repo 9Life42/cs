@@ -6,11 +6,7 @@ public class GUI {
 	private Game game;
 	
 	public GUI() {
-		game = new Game();
-	}
-
-	public static void main(String[] args) {
-		new GUI().run();
+		game = new Game(7);
 	}
 
 	private void run() {
@@ -18,4 +14,7 @@ public class GUI {
 		
 	}
 
+	public static void main(String[] args) {
+		new GUI().run();
+	}
 }
