@@ -22,19 +22,43 @@ int sum(int n)
 int main()
 { double keepAlive = 0; while (keepAlive == 0) {
 
-    double r;
+    double r, c;
 
     cin >> r;
 
-    double c = r;
+    c = r;
 
-    double magic[r][c], i, k, square, sum;
+    double magic[r][c], i, k, square, sum, magic;
+
+    magic = 0;
 
     square = r * c;
 
+    sum = 0;
+
     i = 0;
 
-    k = 0;
+    while (i < r) {
+
+      k = 0;
+
+      while (k < c) {
+
+        sum += magic[r][c];
+
+        k++;
+
+      }
+
+      i++;
+
+    }
+
+    if (sum != sum(square)) {
+
+      magic++;
+
+    }
 
   }
 }
