@@ -32,7 +32,25 @@ int main()
 
     int magic[r][c], i, k, square, sum, iSum, isMagic;
 
-    // TODO cin!!!
+    // cin values
+
+    i = 0;
+
+    while (i < r) {
+
+      k = 0;
+
+      while (k < c) {
+
+        cin >> magic[i][k];
+
+        k++;
+
+      }
+
+      i++;
+
+    }
 
     isMagic = 0;
 
