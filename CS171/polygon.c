@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-// WHAT???
+// Find the perimeter of a polygon
 
 double perimeter(double x[100], double y[100], int size) {
 
