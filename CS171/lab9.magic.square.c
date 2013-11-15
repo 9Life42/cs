@@ -32,6 +32,8 @@ int main()
 
     int magic[r][c], i, k, square, sum, iSum, isMagic;
 
+    // TODO cin!!!
+
     isMagic = 0;
 
     square = r * c;
