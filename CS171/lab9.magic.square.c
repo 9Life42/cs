@@ -5,6 +5,8 @@
 int targetSum(int n)
 {
 
+  // Find what the total sum should be
+
   int sum = 0;
 
   while (n > 0)
@@ -28,9 +30,9 @@ int main()
 
     c = r;
 
-    int magic[r][c], i, k, square, sum, iSum, magic;
+    int magic[r][c], i, k, square, sum, iSum, isMagic;
 
-    magic = 0;
+    isMagic = 0;
 
     square = r * c;
 
@@ -58,7 +60,7 @@ int main()
 
     if (sum != targetSum(square)) {
 
-      magic++;
+      isMagic++;
 
     }
 
@@ -86,7 +88,7 @@ int main()
 
       if (sum != iSum) {
 
-        magic++;
+        isMagic++;
 
       }
 
@@ -116,13 +118,15 @@ int main()
 
       if (sum != iSum) {
 
-        magic++;
+        isMagic++;
 
       }
 
       i++;
 
     }
+
+    // Make sure the down diagonal sums to the correect number
 
     sum = 0;
 
@@ -138,9 +142,11 @@ int main()
 
     if (sum != iSum) {
 
-      magic++;
+      isMagic++;
 
     }
+
+    // Make sure the up diagonal sums to the correect number
 
     sum = 0;
 
@@ -156,9 +162,11 @@ int main()
 
     if (sum != iSum) {
 
-      magic++;
+      isMagic++;
 
     }
+
+    // Test for errors
 
     if (magic == 0) {
 
