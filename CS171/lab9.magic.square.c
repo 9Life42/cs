@@ -2,7 +2,7 @@
 
 // Test a magic square (no int is used twice and sum of rows, columns, diagonals the same)
 
-int sum(int n)
+int targetSum(int n)
 {
 
   int sum = 0;
@@ -22,17 +22,19 @@ int sum(int n)
 int main()
 { double keepAlive = 0; while (keepAlive == 0) {
 
-    double r, c;
+    int r, c;
 
     cin >> r;
 
     c = r;
 
-    double magic[r][c], i, k, square, sum, magic;
+    int magic[r][c], i, k, square, sum, iSum, magic;
 
     magic = 0;
 
     square = r * c;
+
+    // Make sure all entries sum to the correect number
 
     sum = 0;
 
@@ -44,7 +46,7 @@ int main()
 
       while (k < c) {
 
-        sum += magic[r][c];
+        sum += magic[i][k];
 
         k++;
 
@@ -54,11 +56,121 @@ int main()
 
     }
 
-    if (sum != sum(square)) {
+    if (sum != targetSum(square)) {
 
       magic++;
 
     }
+
+    iSum = sum/3
+
+    // Make sure each row sums to the correect number
+
+    sum = 0;
+
+    i = 0;
+
+    while (i < r) {
+
+      sum = 0;
+
+      k = 0;
+
+      while (k < c) {
+
+        sum += magic[i][k];
+
+        k++;
+
+      }
+
+      if (sum != iSum) {
+
+        magic++;
+
+      }
+
+      i++;
+
+    }
+
+    // Make sure each column sums to the correect number
+
+    sum = 0;
+
+    i = 0;
+
+    while (i < r) {
+
+      sum = 0;
+
+      k = 0;
+
+      while (k < c) {
+
+        sum += magic[k][i];
+
+        k++;
+
+      }
+
+      if (sum != iSum) {
+
+        magic++;
+
+      }
+
+      i++;
+
+    }
+
+    sum = 0;
+
+    k = 0;
+
+    while (k < c) {
+
+      sum += magic[k][k];
+
+      k++;
+
+    }
+
+    if (sum != iSum) {
+
+      magic++;
+
+    }
+
+    sum = 0;
+
+    k = 0;
+
+    while (k < c) {
+
+      sum += magic[r - k][k];
+
+      k++;
+
+    }
+
+    if (sum != iSum) {
+
+      magic++;
+
+    }
+
+    if (magic == 0) {
+
+      cout << "Magic!\n"
+
+    } else {
+
+      cout << "Nope...\n"
+
+    }
+
+    keepAlive++;
 
   }
 }
