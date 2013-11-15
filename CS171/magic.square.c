@@ -1,85 +1,54 @@
-#include <FPT.h>
 
-int main()
-{
 
-    int r, c;
+ #include <FPT.h>
+ int main()
+ {
 
-    cin >> r;
+ double m[100][100];
+ int dimension,r,c; 
 
-    c = r;
+   cin >> dimension;
 
-    int magic[r][c], i, k;
+   r=0;
 
-    // cin values
+   while (r<dimension){
 
-    i = 0;
+     c=0;
 
-    while (i < r) {
+     while (c<dimension) {
 
-      k = 0;
+       cout << r << "," << c << ":";
+       cin >> m[r][c];
+       cout <<"done";
+       c++;
 
-      while (k < c) {
+     }
 
-        cin >> magic[i][k];
+     r++;
 
-        k++;
+   }
 
-      }
+   cout << dimension << "\n";
 
-      i++;
+    r = 0;
 
-    }
+    while (r<dimension) {
 
-    cout << r << "\n";
+      c = 0;
 
-    i = 0;
+      while (c<dimension) {
 
-    while (i < r) {
+        cout << m[r][c] << " ";
 
-      k = 0;
-
-      while (k < c) {
-
-        cout << magic[i][k] << " ";
-
-        k++;
+        c++;
 
       }
 
       cout << "\n";
 
-      i++;
+      r++;
 
     }
-}
 
-// #include <FPT.h>
-// int main()
-// {
-
-// double m[100][100];
-// int dimension,r,c; 
-
-//   cin >> dimension;
-
-//   r=0;
-
-//   while (r<dimension){
-
-//     c=0;
-
-//     while (c<dimension) {
-
-//       cout << r << "," << c << ":";
-//       cin >> m[r][c];
-//       cout <<"done";
-//       c++;
-
-//     }
-
-//     r++;
-
-//   }
-// }
+   }
 
