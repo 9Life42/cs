@@ -62,7 +62,7 @@ int main()
 
     }
 
-    iSum = sum/3
+    iSum = sum/3;
 
     // Make sure each row sums to the correect number
 
@@ -162,11 +162,11 @@ int main()
 
     if (magic == 0) {
 
-      cout << "Magic!\n"
+      cout << "Magic!\n";
 
     } else {
 
-      cout << "Nope...\n"
+      cout << "Nope...\n";
 
     }
 
