@@ -88,8 +88,6 @@ int main()
 
     // Make sure each row sums to the correect number
 
-    sum = 0;
-
     i = 0;
 
     while (i < r) {
@@ -174,7 +172,7 @@ int main()
 
     while (k < c) {
 
-      sum += magic[r - k][k];
+      sum += magic[r - k - 1][k];
 
       k++;
 
@@ -188,7 +186,7 @@ int main()
 
     // Test for errors
 
-    if (magic == 0) {
+    if (isMagic == 0) {
 
       cout << "Magic!\n";
 
