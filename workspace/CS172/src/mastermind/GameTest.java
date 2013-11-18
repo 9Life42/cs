@@ -43,13 +43,13 @@ public class GameTest {
 	 */
 	@Test
 	public void testGetNumberOfWhitePegs() {
-		assertEquals(0, game.getNumberOfWhitePegs("royr"));
-		assertEquals(2, game.getNumberOfWhitePegs("brgy"));
-		assertEquals(3, game.getNumberOfWhitePegs("rroy"));
+		assertEquals(0, game.getNumberOfBlackPegs("royr"));
+		assertEquals(2, game.getNumberOfBlackPegs("brgy"));
+		assertEquals(3, game.getNumberOfBlackPegs("rroy"));
 		game = new Game("rooo");
-		assertEquals(1, game.getNumberOfWhitePegs("grrr"));
+		assertEquals(1, game.getNumberOfBlackPegs("grrr"));
 		game = new Game("oorr");
-		assertEquals(2, game.getNumberOfWhitePegs("bboo"));
+		assertEquals(2, game.getNumberOfBlackPegs("bboo"));
 	}
 	
 	/**

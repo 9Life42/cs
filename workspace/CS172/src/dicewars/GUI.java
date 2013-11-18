@@ -25,7 +25,7 @@ public class GUI {
 				drawPlayers();
 				show(0);
 
-				MouseClick mc1 = new MouseClick(game.map);
+				MouseClick mc1 = new MouseClick(game.getMap());
 				int attColumn = mc1.getColumn();
 				int attRow = mc1.getRow();
 				
@@ -33,7 +33,7 @@ public class GUI {
 					game.nextPlayerUp();
 					break;
 				} else if (mc1.onMap()
-						&& game.map[attColumn][attRow].equals(game.getPlayerUpObject())) {
+						&& game.getTerritory(attColumn, attRow).equals(game.getPlayerUpObject())) {
 					// If the click is on the map and the correct
 					// player is selected, continue
 					redrawTerritory(attColumn, attRow);
@@ -41,7 +41,7 @@ public class GUI {
 					break;
 				}
 
-				MouseClick mc2 = new MouseClick(game.map);
+				MouseClick mc2 = new MouseClick(game.getMap());
 				int defColumn = mc2.getColumn();
 				int defRow = mc2.getRow();
 
@@ -49,7 +49,7 @@ public class GUI {
 					game.nextPlayerUp();
 					break;
 				} else if (mc2.onMap()
-						&& !game.map[defColumn][defRow].equals(game.getPlayerUpObject())) {
+						&& !game.getTerritory(defColumn, defRow).equals(game.getPlayerUpObject())) {
 					// If the click is on the map and an enemy is
 					// selected, fight
 					redrawTerritory(defColumn, defRow);
@@ -75,14 +75,14 @@ public class GUI {
 			line(0.125 + i, 0.875, 0.125 + i, 0.375);
 		}
 
-		for (int x = 0; x < game.columns; x++) {
-			for (int y = 0; y < game.rows; y++) {
+		for (int x = 0; x < game.getColumns(); x++) {
+			for (int y = 0; y < game.getRows(); y++) {
 
-				setPenColor(game.map[x][y].getColor());
+				setPenColor(game.getTerritory(x, y).getColor());
 				filledCircle((x + 1) * 0.125, (y + 3) * 0.125, 0.04);
 
 				setPenColor(WHITE);
-				text((x + 1) * 0.125, (y + 3) * 0.125, "" + game.map[x][y].getDice());
+				text((x + 1) * 0.125, (y + 3) * 0.125, "" + game.getTerritory(x, y).getDice());
 
 			}
 		}
@@ -116,13 +116,13 @@ public class GUI {
 				0.04);
 
 		setPenRadius(0.01);
-		setPenColor(game.map[column][row].getColor());
+		setPenColor(game.getTerritory(column, row).getColor());
 		circle((column + 1) * 0.125, (row + 3) * 0.125, 0.04);
 
 		setPenRadius();
 		setPenColor(WHITE);
 		text((column + 1) * 0.125, (row + 3) * 0.125, ""
-				+ game.map[column][row].getDice());
+				+ game.getTerritory(column, row).getDice());
 
 		show(0);
 	}

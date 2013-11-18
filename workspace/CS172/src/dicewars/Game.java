@@ -42,13 +42,13 @@ public class Game {
 	private int playerUp;
 	
 	/** The game map */
-	public final Territory[][] map;
+	private final Territory[][] map;
 
 	/** The number of columns in the map */
-	public final int columns = 7;
+	private final int columns = 7;
 	
 	/** The number of rows in the map */
-	public final int rows = 5;
+	private final int rows = 5;
 	
 	public Game(int numberOfPlayers) {
 		gaming = true;
@@ -84,6 +84,10 @@ public class Game {
 	
 	public int getPlayerUp() {
 		return playerUp;
+	}
+	
+	public Territory getTerritory(int c, int r) {
+		return map[c][r];
 	}
 	
 	public Territory[][] getMap() {
