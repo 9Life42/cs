@@ -1,70 +1,112 @@
 package mastermind;
 
+import static edu.princeton.cs.introcs.StdRandom.uniform;
+
 public class Game {
-	
+
+	private final char[] choices = { 'r', 'o', 'y', 'b', 'g', 'v' };
+
+	private String code;
+
+	private String cdeo;
+
+	private String[] guess = new String[10];
+
+	private int guesses = 0;
+
 	public Game() {
-		// TODO Auto-generated constructor stub
+		code = "";
+		for (int i = 0; i < 4; i++) {
+			code += choices[uniform(choices.length)];
+		}
+		cdeo = sort(code);
 	}
 
-	public Game(String string) {
-		// TODO Auto-generated constructor stub
+	public Game(String code) {
+		this.code = code;
+		cdeo = sort(code);
 	}
 
-	public Object sort(String string) {
+	public String sort(String string) {
 		char[] a = string.toCharArray();
-		
-        for (int i = 1; i < a.length; i++) {
-            for (int j = i; j > 0; j--) {
-                if (a[j-1] > (a[j])) {
-                    char c = a[j];
-                    a[j] = a[j - 1];
-                    a[j - 1] = c;
-                }
-            }
-        }
-        
-        String s = "";
-        
-        for (int i = 0; i < a.length; i++) {
-        	s += a[i];
-        }
-        
+
+		for (int i = 1; i < a.length; i++) {
+			for (int j = i; j > 0; j--) {
+				if (a[j - 1] > (a[j])) {
+					char c = a[j];
+					a[j] = a[j - 1];
+					a[j - 1] = c;
+				}
+			}
+		}
+
+		String s = "";
+		for (int i = 0; i < a.length; i++) {
+			s += a[i];
+		}
+
 		return s;
 	}
 
-	public Object getNumberOfBlackPegs(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getNumberOfBlackPegs(String guess) {
+		int black = 0;
+		for (int i = 0; i < guess.length(); i++) {
+			if (code.charAt(i) == guess.charAt(i)) {
+				black++;
+			}
+		}
+		return black;
 	}
 
-	public void guess(String string) {
-		// TODO Auto-generated method stub
+	public int getNumberOfWhitePegs(String guess) {
+		int white = 0;
+		String egssu = sort(guess);
+		int i = 0;
+		int j = 0;
+		while (i < cdeo.length() && j < egssu.length()) {
+			if (cdeo.charAt(i) == egssu.charAt(j)) {
+				white++;
+				i++;
+				j++;
+			} else if (cdeo.charAt(i) > egssu.charAt(j)) {
+				j++;
+			} else {
+				i++;
+			}
+		}
 		
+		white -= getNumberOfBlackPegs(guess);
+		
+		return white;
 	}
 
-	public Object getNumberOfGuessesMade() {
-		// TODO Auto-generated method stub
-		return null;
+	public void guess(String guess) {
+		this.guess[guesses] = guess;
+		guesses++;
 	}
 
-	public Object getGuess(int i) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getNumberOfGuessesMade() {
+		return guesses;
+	}
+
+	public String getGuess(int i) {
+		return guess[i];
 	}
 
 	public boolean isWon() {
-		// TODO Auto-generated method stub
+		if (guesses > 0 && guess[guesses - 1].equals(code))
+			return true;
 		return false;
 	}
 
 	public boolean isLost() {
-		// TODO Auto-generated method stub
+		if (!isWon() && guesses > 9)
+			return true;
 		return false;
 	}
 
-	public Object getCorrect() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getCorrect() {
+		return code;
 	}
 
 }
