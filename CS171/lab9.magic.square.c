@@ -84,7 +84,7 @@ int main()
 
     }
 
-    iSum = sum/3;
+    iSum = sum/r;
 
     // Make sure each row sums to the correect number
 
@@ -185,6 +185,8 @@ int main()
     }
 
     // Test for errors
+
+    cout << isMagic;
 
     if (isMagic == 0) {
 
