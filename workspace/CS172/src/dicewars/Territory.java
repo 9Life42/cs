@@ -37,7 +37,7 @@ public class Territory {
 		this.dice = dice;
 	}
 	
-	public boolean equals(Player player) {
+	public boolean isOwnedBy(Player player) {
 		if (player == owner)
 			return true;
 		return false;

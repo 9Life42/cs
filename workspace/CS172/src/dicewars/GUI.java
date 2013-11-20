@@ -33,7 +33,7 @@ public class GUI {
 					game.nextPlayerUp();
 					break;
 				} else if (mc1.onMap()
-						&& game.getTerritory(attColumn, attRow).equals(game.getPlayerUpObject())) {
+						&& game.getTerritory(attColumn, attRow).isOwnedBy(game.getPlayerUpObject())) {
 					// If the click is on the map and the correct
 					// player is selected, continue
 					redrawTerritory(attColumn, attRow);
@@ -49,7 +49,7 @@ public class GUI {
 					game.nextPlayerUp();
 					break;
 				} else if (mc2.onMap()
-						&& !game.getTerritory(defColumn, defRow).equals(game.getPlayerUpObject())) {
+						&& !game.getTerritory(defColumn, defRow).isOwnedBy(game.getPlayerUpObject())) {
 					// If the click is on the map and an enemy is
 					// selected, fight
 					redrawTerritory(defColumn, defRow);
