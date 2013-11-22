@@ -3,20 +3,14 @@
 // WHAT???
 
 int main()
-{ double keepAlive = 0; while (keepAlive == 0) {
-
+{
 double swidth, sheight ;
-    swidth = 601 ;  sheight = 601 ;
-    G_init_graphics (swidth, sheight);
+swidth = 601 ;  sheight = 601 ;
+G_init_graphics (swidth, sheight);
+char on = 0; while (on != 'q') {
 
-    int i;
+	// CODE
 
-   	i = G_wait_key();
-
-   	if (i == 'q') {
-
-   		break;
-
-   	}
-
+on = G_wait_key();
+}
 }

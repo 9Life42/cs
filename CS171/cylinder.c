@@ -1,6 +1,6 @@
 #include <FPT.h>
 
-// WHAT???
+// Draws a rotating cylinder movie
 
 int main()
 {
