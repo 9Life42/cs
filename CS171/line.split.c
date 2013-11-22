@@ -1,4 +1,5 @@
 #include <FPT.h>
+using namespace std;
 
 // Draws a line from two clicks and then a point one third of the way along
 
