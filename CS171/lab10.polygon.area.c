@@ -2,7 +2,7 @@
 
 // Make this find the area of two polygons
 
-int inputPolygon(double x[100], y[100]) {
+int inputPolygon(double x[], double y[]) {
 
   int n, i;
 
@@ -83,6 +83,9 @@ int main()
   int psize, qsize;
   double pper, qper;
 
+  // psize = inputPolygon(px, py);
+  // qsize = inputPolygon(qx, qy);
+
   px[0] = 500;
   py[0] = 100;
 
@@ -123,6 +126,6 @@ int main()
   cout << area(px, py, psize) << "\n";
   cout << area(qx, qy, qsize) << "\n";
 
-  G_Wait_Key();
+  // G_Wait_Key();
 
 }
