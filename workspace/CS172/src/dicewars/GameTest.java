@@ -75,5 +75,15 @@ public class GameTest {
 		if (sum2 < map.length * map[1].length * 8)
 			assertEquals(3, sum2 - sum1);
 	}
+	
+	@Test
+	public void testWon() {
+		// TODO
+	}
+	
+	@Test
+	public void testLost() {
+		// TODO
+	}
 
 }
