@@ -37,12 +37,14 @@ public class MouseClick {
 		for (int r = 0; r < map[0].length; r++) {
 			if (y > (r + 3) * 0.125 - 0.04 && y < (r + 3) * 0.125 + 0.04)
 				row = r;
+			// Note to self: watch out for different board sizes
 		}
 		
 		// Find column
 		for (int c = 0; c < map.length; c++) {
 			if (x > (c + 1) * 0.125 - 0.04 && x < (c + 1) * 0.125 + 0.04)
 				column = c;
+			// Note to self: watch out for different board sizes
 		}
 		
 		if (column > -1 && row > -1) {

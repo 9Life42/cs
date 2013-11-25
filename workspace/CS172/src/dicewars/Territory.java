@@ -30,10 +30,16 @@ public class Territory {
 	}
 
 	public void addDice(int dice) {
+		if (this.dice + dice > 8) {
+			throw new IllegalArgumentException("You can't have more than eight dice on a territory.");
+		}
 		this.dice += dice;
 	}
 	
 	public void setDice(int dice) {
+		if (dice > 8) {
+			throw new IllegalArgumentException("You can't have more than eight dice on a territory.");
+		}
 		this.dice = dice;
 	}
 	

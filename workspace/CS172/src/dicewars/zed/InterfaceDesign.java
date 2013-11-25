@@ -1,4 +1,4 @@
-package dicewars;
+package dicewars.zed;
 
 import static edu.princeton.cs.introcs.StdRandom.*;
 import static edu.princeton.cs.introcs.StdDraw.*;

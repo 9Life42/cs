@@ -26,7 +26,7 @@ int inputPolygon(double x[], double y[]) {
 
 }
 
-double perimeter(double x[100], double y[100], int size) {
+double perimeter(double x[], double y[], int size) {
 
   double per = 0;
 
@@ -48,7 +48,7 @@ double perimeter(double x[100], double y[100], int size) {
 
 }
 
-double area(double x[100], double y[100], int size) {
+double area(double x[], double y[], int size) {
 
   double area, s, a, b, c;
 
@@ -60,7 +60,7 @@ double area(double x[100], double y[100], int size) {
 
     a = sqrt(pow((x[i] - x[0]), 2) + pow((y[i] - y[0]), 2));
 
-    b = sqrt(pow((x[i + 1] - x[i]), 2) + pow((y[i + 1] - y[1]), 2));
+    b = sqrt(pow((x[i + 1] - x[i]), 2) + pow((y[i + 1] - y[i]), 2));
 
     c = sqrt(pow((x[0] - x[i + 1]), 2) + pow((y[0] - y[i + 1]), 2));
 
@@ -117,11 +117,11 @@ int main()
 
   qsize = 4;
 
-  psize = inputPolygon(px, py);
-  qsize = inputPolygon(qx, qy);
+  // psize = inputPolygon(px, py);
+  // qsize = inputPolygon(qx, qy);
 
-  cout << perimeter(px, py, psize) << "\n";
-  cout << perimeter(qx, qy, qsize) << "\n";
+  // cout << perimeter(px, py, psize) << "\n";
+  // cout << perimeter(qx, qy, qsize) << "\n";
 
   cout << area(px, py, psize) << "\n";
   cout << area(qx, qy, qsize) << "\n";

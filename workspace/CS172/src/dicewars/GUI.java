@@ -1,6 +1,7 @@
 package dicewars;
 
 import static edu.princeton.cs.introcs.StdDraw.*;
+import static edu.princeton.cs.introcs.StdRandom.*;
 
 public class GUI {
 	
@@ -17,12 +18,10 @@ public class GUI {
 	}
 
 	private void run() {
-		while (game.getGaming()) {
+		while (game.isGaming()) {
 			while (true) {
 				
-				clear();
-				drawMap();
-				drawPlayers();
+				drawBoard("Choose one of your territories to attack with.");
 				show(0);
 
 				MouseClick mc1 = new MouseClick(game.getMap());
@@ -30,13 +29,16 @@ public class GUI {
 				int attRow = mc1.getRow();
 				
 				if (mc1.onEndTurn()) {
-					game.nextPlayerUp();
+					drawBoard("");
+					endTurn();
 					break;
 				} else if (mc1.onMap()
-						&& game.getTerritory(attColumn, attRow).isOwnedBy(game.getPlayerUpObject())) {
+						&& game.getTerritory(attColumn, attRow).isOwnedBy(game.getPlayerUp())) {
 					// If the click is on the map and the correct
 					// player is selected, continue
+					drawBoard("Now choose an adjacent enemy territory to attack.");
 					redrawTerritory(attColumn, attRow);
+					show(0);
 				} else {
 					break;
 				}
@@ -46,19 +48,40 @@ public class GUI {
 				int defRow = mc2.getRow();
 
 				if (mc2.onEndTurn()) {
-					game.nextPlayerUp();
+					drawBoard("");
+					endTurn();
 					break;
 				} else if (mc2.onMap()
-						&& !game.getTerritory(defColumn, defRow).isOwnedBy(game.getPlayerUpObject())) {
+						&& !game.getTerritory(defColumn, defRow).isOwnedBy(game.getPlayerUp())) {
 					// If the click is on the map and an enemy is
 					// selected, fight
+					drawBoard("");
+					redrawTerritory(attColumn, attRow);
 					redrawTerritory(defColumn, defRow);
-					game.attack(attColumn, attRow, defColumn, defRow);
+					show(0);
+					
+					if (attack(game.getTerritory(attColumn, attRow).getDice(), game.getTerritory(defColumn, defRow).getDice())) {
+						text(0.5, 0.2, "Attacker wins!");
+						game.won(attColumn, attRow, defColumn, defRow);
+					} else {
+						text(0.5, 0.2, "Defender wins!");
+						game.lost(attColumn, attRow, defColumn, defRow);
+					}
+					show(1500);
 				} else {
 					break;
 				}
 			}
 		}
+	}
+	
+	public void drawBoard(String string) {
+		clear();
+		drawMap();
+		drawPlayers();
+		
+		setPenColor();
+		text(0.5, 0.2, string);
 	}
 	
 	public void drawMap() {
@@ -96,18 +119,17 @@ public class GUI {
 
 			setPenColor(players[i].getColor());
 			text(x * 0.125, 0.15, "Player " + x);
-			text(x * 0.125, 0.1, "" + players[i].getAdjacentTerritories());
+			text(x * 0.125, 0.1, "" + players[i].getTerritoriesOwned());
+			// Temp
 		}
 
 		setPenColor();
-		rectangle((game.getPlayerUp() + 1) * 0.125, 0.15, 0.05, 0.02);
+		rectangle((game.getPlayerNumberUp() + 1) * 0.125, 0.15, 0.05, 0.02);
 		// Player up indicator
 
 		filledRectangle(0.5, 0.05, 0.07, 0.02);
 		setPenColor(WHITE);
 		text(0.5, 0.05, "End Turn");
-
-		show(0);
 	}
 	
 	public void redrawTerritory(int column, int row) {
@@ -123,7 +145,65 @@ public class GUI {
 		setPenColor(WHITE);
 		text((column + 1) * 0.125, (row + 3) * 0.125, ""
 				+ game.getTerritory(column, row).getDice());
-
-		show(0);
+	}
+	
+	public boolean attack(int attDice, int defDice) {
+		setPenColor();
+		text(0.5, 0.25, "vs");
+		
+		int attSum = 0;
+		int i = 0;
+		int roll;
+		for (; i < attDice; i++) {
+			roll = uniform(1, 7);
+			attSum += roll;
+			// TODO: More interesting dice
+			text(0.55 + i * 0.05, 0.25, "" + roll);
+			text(0.575 + i * 0.05, 0.25, "+");
+		}
+		roll = uniform(1, 7);
+		attSum += roll;
+		text(0.55 + i * 0.05, 0.25, "" + roll);
+		i++;
+		
+		text(0.525 + i * 0.05, 0.25, "=");
+		text(0.55 + i * 0.05, 0.25, "" + attSum);
+		
+		int defSum = 0;
+		i = 0;
+		for (; i < defDice; i++) {
+			roll = uniform(1, 7);
+			defSum += roll;
+			text(0.45 - i * 0.05, 0.25, "" + roll);
+			text(0.425 - i * 0.05, 0.25, "+");
+		}
+		roll = uniform(1, 7);
+		defSum += roll;
+		text(0.45 - i * 0.05, 0.25, "" + roll);
+		i++;
+		
+		text(0.475 - i * 0.05, 0.25, "=");
+		text(0.45 - i * 0.05, 0.25, "" + defSum);
+		
+		if (attSum > defSum)
+			return true;
+		return false;
+	}
+	
+	public void endTurn() {
+		int adj = game.countTerritories();
+		int back = game.getPlayerUp().getBackDice();
+		int dice = adj + back;
+		setPenColor();
+		if (back > 0){
+			text(0.5, 0.2, "You get " + adj + " and " + back + " back dice.");
+		} else {
+			text(0.5, 0.2, "You get " + adj + " dice.");
+		}
+		show();
+		
+		game.distributeDice(dice);
+		game.nextPlayerUp();
+		show(1000);
 	}
 }

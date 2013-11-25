@@ -39,7 +39,7 @@ public class Game {
 	private Player[] players;
 	
 	/** The player who's turn it is */
-	private int playerUp;
+	private int playerNumberUp;
 	
 	/** The game map */
 	private final Territory[][] map;
@@ -63,13 +63,14 @@ public class Game {
 		players[5] = new Player(BLUE);
 		players[6] = new Player(YELLOW);
 		
-		playerUp = 0;
+		playerNumberUp = 0;
 		
 		map = new Territory[columns][rows];
 		buildMap();
+		countTerritories();
 	}
 	
-	public boolean getGaming() {
+	public boolean isGaming() {
 		return gaming;
 	}
 
@@ -77,13 +78,18 @@ public class Game {
 		return players;
 	}
 	
-	public Player getPlayerUpObject() {
-		return players[playerUp];
+	public int getNumberOfPlayers() {
+		return numberOfPlayers;
 		// Note to self: watch out for when players can be eliminated
 	}
 	
-	public int getPlayerUp() {
-		return playerUp;
+	public Player getPlayerUp() {
+		return players[playerNumberUp];
+		// Note to self: watch out for when players can be eliminated
+	}
+	
+	public int getPlayerNumberUp() {
+		return playerNumberUp;
 	}
 	
 	public Territory getTerritory(int c, int r) {
@@ -108,7 +114,11 @@ public class Game {
 	private void buildMap() {
 		for (int c = 0; c < columns; c++) {
 			for (int r = 0; r < rows; r++) {
-				map[c][r] = new Territory(players[uniform(players.length)], uniform(1, 7));
+				int i = uniform(players.length);
+				int j = uniform(1, 5);
+				map[c][r] = new Territory(players[i], j);
+				players[i].incrementTerritoriesOwned();
+				players[i].addNumberOfDice(j);
 			}
 		}
 	}
@@ -119,10 +129,10 @@ public class Game {
 	 * @return Next player
 	 */
 	public void nextPlayerUp() {
-		if (playerUp + 1 == numberOfPlayers)
-			playerUp = 0;
+		if (playerNumberUp + 1 == numberOfPlayers)
+			playerNumberUp = 0;
 		else
-		playerUp += 1;
+		playerNumberUp += 1;
 	}
 	
 	public boolean legal(int attColumn, int attRow, int defColumn, int defRow) {
@@ -142,94 +152,47 @@ public class Game {
 		return true;
 	}
 	
-	public void attack(int attColumn, int attRow, int defColumn, int defRow) {
-		if (legal(attColumn, attRow, defColumn, defRow)) {
-
-			setPenColor();
-			text(0.5, 0.25, "vs.");
-
-			int att = attackerDice(map[attColumn][attRow].getDice());
-			int def = defenderDice(map[defColumn][defRow].getDice());
-
-			if (att > def) {
-				text(0.5, 0.2, "Attacker wins!");
-			} else {
-				text(0.5, 0.2, "Defender wins!");
-			}
-
-			show(2000);
-		}
+	public void won(int attColumn, int attRow, int defColumn, int defRow) {
+		map[defColumn][defRow].getOwner().deincrementTerritoriesOwned();
+		map[defColumn][defRow].getOwner().removeNumberOfDice(map[defColumn][defRow].getDice());
+		map[defColumn][defRow].setOwner(getPlayerUp());
+		map[defColumn][defRow].setDice(map[attColumn][attRow].getDice() - 1);
+		map[attColumn][attRow].setDice(1);
+		getPlayerUp().incrementTerritoriesOwned();
 	}
 	
-	/**
-	 * Roll and draw the defender's dice (the draw component will be moved to GUI in the following version)
-	 * 
-	 * @param defender The number of dice on the defender's territory
-	 * @return The sum of the defender's dice rolls
-	 */
-	public int defenderDice(int defender) {
-		int sum = 0;
-		int x = 0;
-
-		while (defender > x) {
-			int roll = uniform(1, 7);
-
-			sum += roll;
-
-			setPenColor();
-			text(0.55 + x * 0.05, 0.25, "" + roll);
-
-			x++;
-
-			if (defender > x) {
-				text(0.525 + x * 0.05, 0.25, "+");
-			}
-		}
-
-		text(0.525 + x * 0.05, 0.25, "=");
-		text(0.55 + x * 0.05, 0.25, "" + sum);
-
-		return sum;
-	}
-
-	/**
-	 * Roll and draw the attacker's dice (the draw component will be moved to GUI in the following version)
-	 * 
-	 * @param attacker The number of dice on the attacker's territory
-	 * @return The sum of the attacker's dice rolls
-	 */
-	public int attackerDice(int attacker) {
-		int sum = 0;
-		int x = 0;
-
-		while (attacker > x) {
-			int roll = uniform(1, 7);
-
-			sum += roll;
-
-			setPenColor();
-			text(0.45 - x * 0.05, 0.25, "" + roll);
-
-			x++;
-
-			if (attacker > x) {
-				text(0.475 - x * 0.05, 0.25, "+");
-			}
-		}
-
-		text(0.475 - x * 0.05, 0.25, "=");
-		text(0.45 - x * 0.05, 0.25, "" + sum);
-
-		return sum;
+	public void lost(int attColumn, int attRow, int defColumn, int defRow) {
+		text(0.5, 0.2, "Defender wins!");
+		getPlayerUp().removeNumberOfDice(map[attColumn][attRow].getDice() - 1);
+		map[attColumn][attRow].setDice(1);
 	}
 	
-	public int countAdjacent(Player player) {
-		//TODO
-		return -1;
+	public int countTerritories() {
+		return getPlayerUp().getTerritoriesOwned() / 2;
+		// Temporary count
 	}
 		
-	public void distributeDice(Player player, int dice) {
-		// TODO
+	public void distributeDice(int dice) {
+		
+		int over = (getPlayerUp().getNumberOfDice() + dice) - (getPlayerUp().getTerritoriesOwned() * 8);
+		
+		if (over > 0) {
+			getPlayerUp().setBackDice(over);
+			dice -= over;
+		} else {
+			getPlayerUp().setBackDice(0);
+		}
+		
+		getPlayerUp().addNumberOfDice(dice);
+		
+		while (dice > 0) {
+			int c = uniform(columns);
+			int r = uniform(rows);
+			if (map[c][r].isOwnedBy(getPlayerUp()) && map[c][r].getDice() < 8){
+				map[c][r].addDice(1);
+				dice--;
+			}
+		}
 	}
 
 }
