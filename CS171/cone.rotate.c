@@ -58,6 +58,8 @@ int main()
 
     }
 
+    G_rgb(0, 0, 0);
+
     i = 0;
 
     while (i < res) {
