@@ -63,6 +63,11 @@ public class Game {
 		players[5] = new Player(BLUE);
 		players[6] = new Player(YELLOW);
 		
+//		players[2] = players[0];
+//		players[3] = players[1];
+//		players[4] = players[0];
+//		players[5] = players[1];
+		
 		playerNumberUp = 0;
 		
 		map = new Territory[columns][rows];

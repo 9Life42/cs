@@ -60,12 +60,8 @@ public class GUI {
 					redrawTerritory(defColumn, defRow);
 					show(0);
 					
-					if (attack(game.getTerritory(attColumn, attRow).getDice(), game.getTerritory(defColumn, defRow).getDice())) {
-						text(0.5, 0.2, "Attacker wins!");
-						game.won(attColumn, attRow, defColumn, defRow);
-					} else {
-						text(0.5, 0.2, "Defender wins!");
-						game.lost(attColumn, attRow, defColumn, defRow);
+					if (game.legal(attColumn, attRow, defColumn, defRow)) {
+						attack(game.getTerritory(attColumn, attRow).getDice(), game.getTerritory(defColumn, defRow).getDice());
 					}
 					show(1500);
 				} else {
@@ -119,7 +115,7 @@ public class GUI {
 
 			setPenColor(players[i].getColor());
 			text(x * 0.125, 0.15, "Player " + x);
-			text(x * 0.125, 0.1, "" + players[i].getTerritoriesOwned());
+			text(x * 0.125, 0.1, "" + players[i].getTerritoriesOwned() + ":" + players[i].getNumberOfDice());
 			// Temp
 		}
 
@@ -147,7 +143,7 @@ public class GUI {
 				+ game.getTerritory(column, row).getDice());
 	}
 	
-	public boolean attack(int attDice, int defDice) {
+	public void attack(int attDice, int defDice) {
 		setPenColor();
 		text(0.5, 0.25, "vs");
 		
@@ -185,9 +181,13 @@ public class GUI {
 		text(0.475 - i * 0.05, 0.25, "=");
 		text(0.45 - i * 0.05, 0.25, "" + defSum);
 		
-		if (attSum > defSum)
-			return true;
-		return false;
+		if (attSum > defSum) {
+			text(0.5, 0.2, "Attacker wins!");
+			game.won(attColumn, attRow, defColumn, defRow);
+		} else {
+			text(0.5, 0.2, "Defender wins!");
+			game.lost(attColumn, attRow, defColumn, defRow);
+		}
 	}
 	
 	public void endTurn() {
