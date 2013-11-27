@@ -4,9 +4,7 @@
 
 int main()
 {
-double swidth, sheight ;
-swidth = 601 ;  sheight = 601 ;
-G_init_graphics (swidth, sheight);
+G_init_graphics (601, 601);
 char on = 0; while (on != 'q') {
 
 	// CODE
