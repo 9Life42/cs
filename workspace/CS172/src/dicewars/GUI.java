@@ -55,13 +55,16 @@ public class GUI {
 						&& !game.getTerritory(defColumn, defRow).isOwnedBy(game.getPlayerUp())) {
 					// If the click is on the map and an enemy is
 					// selected, fight
-					drawBoard("");
-					redrawTerritory(attColumn, attRow);
-					redrawTerritory(defColumn, defRow);
-					show(0);
 					
 					if (game.legal(attColumn, attRow, defColumn, defRow)) {
-						attack(game.getTerritory(attColumn, attRow).getDice(), game.getTerritory(defColumn, defRow).getDice());
+						drawBoard("");
+						redrawTerritory(attColumn, attRow);
+						redrawTerritory(defColumn, defRow);
+						show(0);
+						
+						attack(attColumn, attRow, defColumn, defRow);
+					} else {
+						drawBoard("Not a valid territory to attack.");
 					}
 					show(1500);
 				} else {
@@ -143,7 +146,10 @@ public class GUI {
 				+ game.getTerritory(column, row).getDice());
 	}
 	
-	public void attack(int attDice, int defDice) {
+	public void attack(int attColumn, int attRow, int defColumn, int defRow) {
+		int attDice = game.getTerritory(attColumn, attRow).getDice();
+		int defDice = game.getTerritory(defColumn, defRow).getDice();
+		
 		setPenColor();
 		text(0.5, 0.25, "vs");
 		
