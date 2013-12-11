@@ -29,6 +29,11 @@ public class Game {
 	/** Define a new player color */
 	public static final Color YELLOW = new Color(255, 200, 0);
 	
+	/** Define a new player color */
+	public static final Color LIGHT_BLUE = new Color(0, 225, 255);
+	
+	public static final Color[] colors = {PURPLE, RED, ORANGE, PINK, GREEN, BLUE, YELLOW, LIGHT_BLUE};
+	
 	/** true while the game is on */
 	private boolean gaming;
 	
@@ -55,18 +60,10 @@ public class Game {
 		this.numberOfPlayers = numberOfPlayers;
 		
 		players = new Player[numberOfPlayers];
-		players[0] = new Player(PURPLE);
-		players[1] = new Player(RED);
-		players[2] = new Player(ORANGE);
-		players[3] = new Player(PINK);
-		players[4] = new Player(GREEN);
-		players[5] = new Player(BLUE);
-		players[6] = new Player(YELLOW);
 		
-//		players[2] = players[0];
-//		players[3] = players[1];
-//		players[4] = players[0];
-//		players[5] = players[1];
+		for (int i = 0; i < numberOfPlayers; i++) {
+			players[i] = new Player(colors[i]);
+		}
 		
 		playerNumberUp = 0;
 		

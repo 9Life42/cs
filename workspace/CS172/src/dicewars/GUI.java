@@ -14,7 +14,7 @@ public class GUI {
 	
 	public GUI() {
 		setCanvasSize(768, 768);
-		game = new Game(7);
+		game = new Game(8);
 	}
 
 	private void run() {
@@ -113,17 +113,17 @@ public class GUI {
 	public void drawPlayers() {
 		Player[] players = game.getPlayers();
 
-		for (int i = 0; i < 7; i++) {
-			int x = i + 1;
+		for (int i = 0; i < players.length; i++) {
+			int x = i - (8/players.length) + (4/players.length);
 
 			setPenColor(players[i].getColor());
-			text(x * 0.125, 0.15, "Player " + x);
-			text(x * 0.125, 0.1, "" + players[i].getTerritoriesOwned() + ":" + players[i].getNumberOfDice());
+			text(x * 0.11, 0.15, "Player " + x);
+			text(x * 0.11, 0.1, "" + players[i].getTerritoriesOwned() + ":" + players[i].getNumberOfDice());
 			// Temp
 		}
 
 		setPenColor();
-		rectangle((game.getPlayerNumberUp() + 1) * 0.125, 0.15, 0.05, 0.02);
+		rectangle((game.getPlayerNumberUp() + 1) * 0.11, 0.15, 0.05, 0.02);
 		// Player up indicator
 
 		filledRectangle(0.5, 0.05, 0.07, 0.02);
