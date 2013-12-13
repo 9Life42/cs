@@ -112,20 +112,23 @@ public class GUI {
 	
 	public void drawPlayers() {
 		Player[] players = game.getPlayers();
+		int origin = 10 - players.length;
 
 		for (int i = 0; i < players.length; i++) {
-			int x = i - (8/players.length) + (4/players.length);
-
+			int x = origin + 2 * i;
+			
 			setPenColor(players[i].getColor());
-			text(x * 0.11, 0.15, "Player " + x);
-			text(x * 0.11, 0.1, "" + players[i].getTerritoriesOwned() + ":" + players[i].getNumberOfDice());
+			text(x * 0.0555, 0.15, "Player " + players[i].getNumber());
+			text(x * 0.0555, 0.1, "" + players[i].getTerritoriesOwned() + ":" + players[i].getNumberOfDice());
 			// Temp
 		}
-
+		
+		origin += game.getPlayerIndexUp() * 2;
+		
 		setPenColor();
-		rectangle((game.getPlayerNumberUp() + 1) * 0.11, 0.15, 0.05, 0.02);
+		rectangle(origin * 0.0555, 0.15, 0.05, 0.02);
 		// Player up indicator
-
+		
 		filledRectangle(0.5, 0.05, 0.07, 0.02);
 		setPenColor(WHITE);
 		text(0.5, 0.05, "End Turn");

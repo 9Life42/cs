@@ -4,6 +4,8 @@ import java.awt.Color;
 
 public class Player {
 	
+	private final int number;
+	
 	private final Color color;
 	
 	private int adjacentTerritories;
@@ -14,7 +16,8 @@ public class Player {
 	
 	private int backDice;
 
-	public Player(Color color) {
+	public Player(int number, Color color) {
+		this.number = number;
 		this.color = color;
 		adjacentTerritories = 0;
 		territoriesOwned = 0;
@@ -68,6 +71,10 @@ public class Player {
 	
 	public void setBackDice(int dice) {
 		backDice = dice;
+	}
+	
+	public int getNumber() {
+		return number;
 	}
 	
 	public Color getColor() {
