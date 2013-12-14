@@ -10,7 +10,7 @@ public class MouseClick {
 	
 	private boolean onMap;
 	
-	private boolean onEndTurn;
+	private boolean onButton;
 	
 	private int column;
 	
@@ -23,6 +23,10 @@ public class MouseClick {
 		y = mouseY();
 		
 		while (mousePressed()) { }
+		
+		if (x > 0.43 && x < 0.57 && y > 0.03 && y < 0.07) {
+			onButton = true;
+		}
 	}
 	
 	public MouseClick(Territory[][] map) {
@@ -52,7 +56,7 @@ public class MouseClick {
 		}
 		
 		if (x > 0.43 && x < 0.57 && y > 0.03 && y < 0.07) {
-			onEndTurn = true;
+			onButton = true;
 		}
 
 	}
@@ -69,8 +73,8 @@ public class MouseClick {
 		return onMap;
 	}
 	
-	public boolean onEndTurn() {
-		return onEndTurn;
+	public boolean onButton() {
+		return onButton;
 	}
 	
 	public int getColumn() {

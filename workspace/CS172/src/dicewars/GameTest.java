@@ -75,16 +75,16 @@ public class GameTest {
 		if (sum2 < map.length * map[1].length * 8)
 			assertEquals(3, sum2 - sum1);
 	}
-	
+
 	@Test
 	public void testRemovePlayer() {
 		assertEquals(game.getPlayers().length, 7);
-		
+
 		assertEquals(game.getPlayerUp().getNumber(), 1);
 		game.removePlayer(2);
 		game.nextPlayerUp();
 		assertEquals(game.getPlayers().length, 6);
-		
+
 		assertEquals(game.getPlayerUp().getNumber(), 3);
 		game.nextPlayerUp();
 		assertEquals(game.getPlayerUp().getNumber(), 4);
@@ -97,16 +97,6 @@ public class GameTest {
 		assertEquals(game.getPlayers().length, 5);
 
 		assertEquals(game.getPlayerUp().getNumber(), 1);
-	}
-
-	@Test
-	public void testWon() {
-		// TODO
-	}
-	
-	@Test
-	public void testLost() {
-		// TODO
 	}
 
 }
