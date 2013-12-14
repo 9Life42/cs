@@ -49,8 +49,6 @@ public class Game {
 			players[i] = new Player(i + 1, colors[i]);
 		}
 
-		playerIndexUp = 0;
-
 		map = new Territory[columns][rows];
 		buildMap();
 		countTerritories();
@@ -63,7 +61,7 @@ public class Game {
 	public Player[] getPlayers() {
 		return players;
 	}
-	
+
 	public int getNumberOfPlayers() {
 		return players.length;
 	}
@@ -96,24 +94,23 @@ public class Game {
 	 * Randomizes the map
 	 */
 	public void buildMap() {
-		for (int c = 0; c < columns; c++) {
-			for (int r = 0; r < rows; r++) {
-//				int i = uniform(players.length);
-				int i = 0;
-				int j = uniform(1, 5);
-				map[c][r] = new Territory(players[i], j);
-				players[i].incrementTerritoriesOwned();
-				players[i].addNumberOfDice(j);
+		playerIndexUp = uniform(players.length);
+		int open = rows * columns;
+		
+		while (open > 0) {
+			int c = uniform(columns);
+			int r = uniform(rows);
+			if (map[c][r] == null) {
+				int d = uniform(1, 5);
+				map[c][r] = new Territory(players[playerIndexUp], d);
+				players[playerIndexUp].incrementTerritoriesOwned();
+				players[playerIndexUp].addNumberOfDice(d);
+				nextPlayerUp();
+				open--;
 			}
 		}
-
-		for (int i = 0; i < players.length; i++) {
-			int r = uniform(5);
-			int c = uniform(7);
-			map[c][r] = new Territory(players[i], 1);
-			players[i].incrementTerritoriesOwned();
-			players[i].addNumberOfDice(1);
-		}
+		
+		playerIndexUp = 0;
 	}
 
 	/**
@@ -158,7 +155,7 @@ public class Game {
 		defender.setDice(attacker.getDice() - 1);
 		attacker.setDice(1);
 		getPlayerUp().incrementTerritoriesOwned();
-		
+
 		if (players.length < 2)
 			gaming = false;
 	}
@@ -170,12 +167,13 @@ public class Game {
 	}
 
 	public int countTerritories() {
-		return getPlayerUp().getTerritoriesOwned();
+		// return getPlayerUp().getTerritoriesOwned() / 2;
+		return 100;
 		// Temporary count
 	}
 
 	public void distributeDice(int dice) {
-		
+
 		int over = (getPlayerUp().getNumberOfDice() + dice)
 				- (getPlayerUp().getTerritoriesOwned() * 8);
 

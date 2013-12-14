@@ -47,8 +47,6 @@ public class GUI {
 			text(0.5, 0.5, "Prepare yourself...");
 			show(1500);
 
-//			game = new Game(2);
-
 			while (game.isGaming()) {
 				while (true) {
 					if (!game.isGaming()) {
@@ -272,7 +270,7 @@ public class GUI {
 		for (; i < attDice; i++) {
 			roll = uniform(1, 7);
 			attSum += roll;
-			// TODO: More interesting dice
+			// More interesting dice?
 			text(0.55 + i * 0.05, 0.25, "" + roll);
 			text(0.575 + i * 0.05, 0.25, "+");
 		}
