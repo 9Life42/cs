@@ -98,5 +98,31 @@ public class GameTest {
 
 		assertEquals(game.getPlayerUp().getNumber(), 1);
 	}
+	
+	@Test
+	public void testCountTerritories() {
+		Player player = game.getPlayerUp();
+		
+		for (int c = 0; c < map.length; c++) {
+			for (int r = 0; r < map[c].length; r++) {
+				map[c][r].setOwner(player);
+			}
+		}
+		
+		game.countTerritories(player);
+		assertEquals(player.getAdjacentTerritories(), 35);
+		game.nextPlayerUp();
+		
+		for (int c = 0; c < map.length; c++) {
+			map[c][0].setOwner(game.getPlayerUp());
+		}
+		
+		map[3][3].setOwner(game.getPlayerUp());
+		
+		game.countTerritories(player);
+		assertEquals(player.getAdjacentTerritories(), 27);
+		game.countTerritories(game.getPlayerUp());
+		assertEquals(game.getPlayerUp().getAdjacentTerritories(), 7);
+	}
 
 }

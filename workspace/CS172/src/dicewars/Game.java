@@ -25,8 +25,7 @@ public class Game {
 	/** Define a new player color */
 	public static final Color LIGHT_BLUE = new Color(0, 225, 255);
 
-	public static final Color[] colors = { PURPLE, RED, ORANGE, PINK, GREEN,
-			BLUE, YELLOW, LIGHT_BLUE };
+	public static final Color[] colors = {PURPLE, RED, GREEN, BLUE, ORANGE, YELLOW, LIGHT_BLUE, PINK};
 
 	/** true while the game is on */
 	private boolean gaming;
@@ -51,7 +50,6 @@ public class Game {
 
 		map = new Territory[columns][rows];
 		buildMap();
-		countTerritories();
 	}
 
 	public boolean isGaming() {
@@ -96,7 +94,7 @@ public class Game {
 	public void buildMap() {
 		playerIndexUp = uniform(players.length);
 		int open = rows * columns;
-		
+
 		while (open > 0) {
 			int c = uniform(columns);
 			int r = uniform(rows);
@@ -110,6 +108,23 @@ public class Game {
 			}
 		}
 		
+		for (int c = 0; c < columns; c++) {
+			for (int r = 0; r < rows; r++) {
+				if (c > 0)
+					map[c][r].addNeighbor(map[c-1][r]);
+				if (c < columns - 1)
+					map[c][r].addNeighbor(map[c+1][r]);
+				if (r > 0)
+					map[c][r].addNeighbor(map[c][r - 1]);
+				if (r < rows -1)
+					map[c][r].addNeighbor(map[c][r + 1]);
+			}
+		}
+		
+		for (int i = 0; i < players.length; i++) {
+			countTerritories(players[i]);
+		}
+
 		playerIndexUp = 0;
 	}
 
@@ -143,18 +158,24 @@ public class Game {
 	}
 
 	public void won(int attColumn, int attRow, int defColumn, int defRow) {
-		Territory attacker = map[attColumn][attRow];
-		Territory defender = map[defColumn][defRow];
+		Territory attack = map[attColumn][attRow];
+		Territory defend = map[defColumn][defRow];
+		
+		Player attacker = map[attColumn][attRow].getOwner();
+		Player defender = map[defColumn][defRow].getOwner();
 
-		defender.getOwner().deincrementTerritoriesOwned();
-		defender.getOwner().removeNumberOfDice(defender.getDice());
-		if (defender.getOwner().getTerritoriesOwned() < 1)
-			removePlayer(defender.getOwner().getNumber());
+		defender.deincrementTerritoriesOwned();
+		defender.removeNumberOfDice(defend.getDice());
+		if (defender.getTerritoriesOwned() < 1)
+			removePlayer(defender.getNumber());
 
-		defender.setOwner(getPlayerUp());
-		defender.setDice(attacker.getDice() - 1);
-		attacker.setDice(1);
-		getPlayerUp().incrementTerritoriesOwned();
+		defend.setOwner(getPlayerUp());
+		defend.setDice(attack.getDice() - 1);
+		attack.setDice(1);
+		attacker.incrementTerritoriesOwned();
+		
+		countTerritories(attacker);
+		countTerritories(defender);
 
 		if (players.length < 2)
 			gaming = false;
@@ -166,10 +187,36 @@ public class Game {
 		map[attColumn][attRow].setDice(1);
 	}
 
-	public int countTerritories() {
-		// return getPlayerUp().getTerritoriesOwned() / 2;
-		return 100;
-		// Temporary count
+	public int rCount(Territory here) {
+		here.counted(true);
+		int count = 1;
+		for (Territory t: here.getNeighbors())
+			if (!t.isCounted() && here.getOwner() == t.getOwner()) {
+				count += rCount(t);
+			}
+		return count;
+	}
+
+	public void countTerritories(Player p) {
+		int adjacent = 0;
+
+		for (int c = 0; c < columns; c++) {
+			for (int r = 0; r < rows; r++) {
+				if (map[c][r].isOwnedBy(p) && !map[c][r].isCounted()) {
+					int count = rCount(map[c][r]);
+					if (count > adjacent)
+						adjacent = count;
+				}
+			}
+		}
+		
+		for (int c = 0; c < columns; c++) {
+			for (int r = 0; r < rows; r++) {
+				map[c][r].counted(false);
+			}
+		}
+
+		p.setAdjacentTerritories(adjacent);
 	}
 
 	public void distributeDice(int dice) {
@@ -205,6 +252,9 @@ public class Game {
 				x++;
 			}
 		}
+		
+		if (getPlayerUp().getNumber() > player)
+			playerIndexUp--;
 
 		players = temp;
 	}

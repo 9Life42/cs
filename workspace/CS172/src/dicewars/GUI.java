@@ -100,7 +100,7 @@ public class GUI {
 							attack(attColumn, attRow, defColumn, defRow);
 
 						} else {
-							drawBoard("Not a valid territory to attack.");
+							drawBoard("Not a valid territory...");
 						}
 						show(1500);
 					} else {
@@ -123,29 +123,29 @@ public class GUI {
 	public void drawSplash(int size) {
 		clear();
 		setPenColor();
-		text(0.5, 0.975, "DICE WARS!");
+		text(0.5, 0.975, "DICEWARS!");
 		
-		textLeft(0.02, 0.9, "Dicewars is a game of strategy.");
-		textLeft(0.02, 0.85, "Each territory has between 1 and 8 dice.");
+		textLeft(0.0, 0.9, "Dicewars is a game of strategy.");
+		textLeft(0.0, 0.85, "Each territory has between 1 and 8 dice.");
 		textLeft(
-				0.02,
+				0.0,
 				0.8,
 				"If your territory has more than 1 die on it, you may attack a neighboring territory.");
-		textLeft(0.02, 0.75,
+		textLeft(0.0, 0.75,
 				"The winner of an attack is determined by random dice rolls.");
-		textLeft(0.02, 0.7, "If you win, all but one of your dice advance.");
-		textLeft(0.02, 0.65,
-				"If you loose, you loose all but one of your dice on the attacking territory.");
+		textLeft(0.0, 0.7, "If you win, all but one of your dice advance.");
+		textLeft(0.0, 0.65,
+				"If you loose, you lose all but one of your dice on the attacking territory.");
 		textLeft(
-				0.02,
+				0.0,
 				0.6,
-				"When your turn is over you will get new dice randomly destributed to your territories.");
+				"When your turn is over you will get new dice randomly distributed to your territories.");
 		textLeft(
-				0.02,
+				0.0,
 				0.55,
-				"The number of dice is equivalent to your largest clump of territories that share a border.");
-		textLeft(0.02, 0.5, "To win, you must eliminate all other players...");
-		textLeft(0.02, 0.4, "How many players would you like to have?");
+				"The number of dice distributed is equivalent to your largest clump of connected territories.");
+		textLeft(0.0, 0.5, "To win, you must eliminate all other players...");
+		textLeft(0.0, 0.4, "How many players would you like to have?");
 
 		int origin = 1;
 
@@ -195,7 +195,7 @@ public class GUI {
 	public void drawMap() {
 		clear();
 		setPenColor();
-		text(0.5, 0.975, "DICE WARS!");
+		text(0.5, 0.975, "DICEWARS!");
 		// May want to change the location of this eventually...
 
 		for (double i = 0; i < 0.625; i += 0.125) {
@@ -229,8 +229,7 @@ public class GUI {
 
 			setPenColor(players[i].getColor());
 			text(x * 0.0555, 0.15, "Player " + players[i].getNumber());
-			text(x * 0.0555, 0.1, "" + players[i].getTerritoriesOwned() + ":"
-					+ players[i].getNumberOfDice());
+			text(x * 0.0555, 0.1, "" + players[i].getAdjacentTerritories());
 			// Temp
 		}
 
@@ -270,7 +269,7 @@ public class GUI {
 		for (; i < attDice; i++) {
 			roll = uniform(1, 7);
 			attSum += roll;
-			// More interesting dice?
+			// More interesting dice to come...
 			text(0.55 + i * 0.05, 0.25, "" + roll);
 			text(0.575 + i * 0.05, 0.25, "+");
 		}
@@ -308,7 +307,7 @@ public class GUI {
 	}
 
 	public void endTurn() {
-		int adj = game.countTerritories();
+		int adj = game.getPlayerUp().getAdjacentTerritories();
 		int back = game.getPlayerUp().getBackDice();
 		int dice = adj + back;
 		setPenColor();
