@@ -1,16 +1,28 @@
 package dicewars;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class Territory {
 	
 	private Player owner;
-	
 	private int dice;
+	private boolean counted;
+	private ArrayList<Territory> neighbors;
+	// The ArrayList method allows me to use random territories in the future that are not laid out in a grid
 	
 	public Territory(Player owner, int dice) {
 		this.owner = owner;
 		this.dice = dice;
+		neighbors = new ArrayList<Territory>();
+	}
+	
+	public void addNeighbor(Territory t) {
+		neighbors.add(t);
+	}
+	
+	public ArrayList<Territory> getNeighbors() {
+		return neighbors;
 	}
 
 	public Player getOwner() {
@@ -47,6 +59,14 @@ public class Territory {
 		if (player == owner)
 			return true;
 		return false;
+	}
+	
+	public void counted(boolean b) {
+		counted = b;
+	}
+	
+	public boolean isCounted() {
+		return counted;
 	}
 
 }

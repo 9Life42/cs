@@ -1,5 +1,6 @@
-
 #include <FPT.h>
+
+// Falling stick man
 
 // appropriate for a 600x600 window
 double x[13] = {263,338,338,450,338,338,375,300,225,263,263,150,263} ;

@@ -22,16 +22,16 @@ public class GameTest {
 	}
 
 	@Test
-	public void testPlayerNumberUp() {
-		assertEquals(0, game.getPlayerNumberUp());
+	public void testPlayerIndexUp() {
+		assertEquals(0, game.getPlayerIndexUp());
 
 		for (int i = 0; i < game.getNumberOfPlayers() - 1; i++) {
 			game.nextPlayerUp();
 		}
 
-		assertEquals(game.getNumberOfPlayers() - 1, game.getPlayerNumberUp());
+		assertEquals(game.getNumberOfPlayers() - 1, game.getPlayerIndexUp());
 		game.nextPlayerUp();
-		assertEquals(0, game.getPlayerNumberUp());
+		assertEquals(0, game.getPlayerIndexUp());
 	}
 
 	@Test
@@ -75,15 +75,54 @@ public class GameTest {
 		if (sum2 < map.length * map[1].length * 8)
 			assertEquals(3, sum2 - sum1);
 	}
-	
+
 	@Test
-	public void testWon() {
-		// TODO
+	public void testRemovePlayer() {
+		assertEquals(game.getPlayers().length, 7);
+
+		assertEquals(game.getPlayerUp().getNumber(), 1);
+		game.removePlayer(2);
+		game.nextPlayerUp();
+		assertEquals(game.getPlayers().length, 6);
+
+		assertEquals(game.getPlayerUp().getNumber(), 3);
+		game.nextPlayerUp();
+		assertEquals(game.getPlayerUp().getNumber(), 4);
+		game.nextPlayerUp();
+		assertEquals(game.getPlayerUp().getNumber(), 5);
+		game.nextPlayerUp();
+		assertEquals(game.getPlayerUp().getNumber(), 6);
+		game.removePlayer(7);
+		game.nextPlayerUp();
+		assertEquals(game.getPlayers().length, 5);
+
+		assertEquals(game.getPlayerUp().getNumber(), 1);
 	}
 	
 	@Test
-	public void testLost() {
-		// TODO
+	public void testCountTerritories() {
+		Player player = game.getPlayerUp();
+		
+		for (int c = 0; c < map.length; c++) {
+			for (int r = 0; r < map[c].length; r++) {
+				map[c][r].setOwner(player);
+			}
+		}
+		
+		game.countTerritories(player);
+		assertEquals(player.getAdjacentTerritories(), 35);
+		game.nextPlayerUp();
+		
+		for (int c = 0; c < map.length; c++) {
+			map[c][0].setOwner(game.getPlayerUp());
+		}
+		
+		map[3][3].setOwner(game.getPlayerUp());
+		
+		game.countTerritories(player);
+		assertEquals(player.getAdjacentTerritories(), 27);
+		game.countTerritories(game.getPlayerUp());
+		assertEquals(game.getPlayerUp().getAdjacentTerritories(), 7);
 	}
 
 }

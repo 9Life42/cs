@@ -14,7 +14,7 @@ public class TerritoryTest {
 
 	@Before
 	public void setUp() throws Exception {
-		player = new Player(RED);
+		player = new Player(1, RED);
 		territory = new Territory(player, 3);
 	}
 
