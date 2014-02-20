@@ -19,6 +19,18 @@ printBooks(books);
 freeBooks(books);
 }
 
+void parseBook(char *info) {
+
+}
+
+void listBook(char *title, char *price) {
+
+}
+
+void searchBooks(char *title) {
+	
+}
+
 void printBooks(Book *books) {
 
 }
