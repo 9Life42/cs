@@ -1,18 +1,19 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<math.h>
 
-#define MAX_INFO_LENGTH 100 
-#define MAX_PRICE_LENGTH 10
+#define STRING_LENGTH 100
 
 typedef struct nextBook {
-  char price[MAX_PRICE_LENGTH];
-  char title[MAX_INFO_LENGTH];
-  struct nextBook *next;
+	double price;
+	char title[STRING_LENGTH];
+	struct nextBook *next;
 } Book;
 
-void parseBook(char *info);
-void listBook(char *title, char *price);
-void searchBooks(char *title);
-void printBooks(Book *books);
-void freeBooks(Book *books);
+double parseString(char * info);
+Book * addBook(double price, char * title, Book * books, int * added);
+int bookCompare(Book * book1, Book * book2);
+int searchBooks(char * title, Book * books);
+void printBooks(Book * books);
+void freeBooks(Book * books);
